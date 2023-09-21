@@ -446,14 +446,14 @@ add_filter('acf/load_field/name=color', 'acf_load_color_field_choices');
 add_action('add_meta_boxes', 'csv_register_meta_boxes');
 function csv_register_meta_boxes()
 {
-    add_meta_box('eb-export-csv', __('EXPORT CSV', 'textdomain'), 'export_csv_display', 'test', 'side');
+    add_meta_box('eb-export-csv', __('Report CSV Risposte', 'textdomain'), 'export_csv_display', 'test', 'side');
 }
 
 function export_csv_display()
 {
     $postID = intval($_GET['post']);
     ?>
-        <a target="_blank" href="<?php echo admin_url("admin-ajax.php?post={$postID}&action=export_csv"); ?>" class="button button-primary button-large" style="width: 100%;">EXPORT</a>
+        <a target="_blank" href="<?php echo admin_url("admin-ajax.php?post={$postID}&action=export_csv"); ?>" class="button button-primary button-large" style="width: 100%;">EXPORT CSV</a>
     <?php
     echo '<b';
 }
