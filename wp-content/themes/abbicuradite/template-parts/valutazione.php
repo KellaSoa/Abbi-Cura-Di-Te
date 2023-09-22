@@ -82,9 +82,11 @@
             <div class="Resultdescription">
                 <h5 class="fw-bold colorFinal <?php echo $colorFinal; ?>"><?php showMessageColor($colorFinal); ?></h5>
                 <?php echo $legendFinal; ?>
-                <div class=" mt-5">
+                <?php if($args['page'] == 'Test'):?>
+                <div class="mt-5">
                     <a href="#area-test" class="btn-scopri">METTITI ALLA PROVA</a>
                 </div>
+                 <?php endif;?>
 
             </div>
         </div>

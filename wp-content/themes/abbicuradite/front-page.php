@@ -121,20 +121,43 @@ $dataTestUser = $wpdb->get_results("SELECT * FROM wp_valutazione WHERE user_id =
             </div>
         </div>
     </a>
+
+
+<div class="container my-5">
+    <div class="row align-items-center my-3">
+        <div class="col-6 col-lg-8">
+            <h1 class="title-bloc fs-1 fw-bold"><?php echo get_field("titolo_blocco_video"); ?></h1>
+            <h5 class="subtitle py-2 text-uppercase"><?php echo get_field("sottotitolo_blocco_video"); ?></h5>
+            <p><?php echo get_field("descrizione_blocco_video"); ?></p>
+        </div>
+        <div class="col-6 col-lg-4 text-end">
+            <a class="btn-test-tax btn-border-radius-bleu mx-auto" href="<?php echo site_url('/video-gallery')?>"><?php echo get_field("bottone_blocco_video"); ?></a>
+        </div>
+    </div>
+    <div class="row row-video-gallery">
+        <?php
+        $video = get_field("video_gallery", 609);
+        foreach ($video as $k => $v) {
+            get_template_part("template-parts/card-video", 'card-video', ["video" => $v, "view_taxonomy" => true]);
+            if($k == 2) break;
+        }
+        ?>
+    </div>
+</div>
     <?php /*
     <div class="container-fluid bg-white bloc-content">
        <div class="container mt-5 bloc-content mb-5">
             <div class="row align-items-center">
-                <h1 class="title-bloc fs-1 fw-bold mt-3"><?php echo get_field("titolo_quarto"); ?></h1>
+                <h1 class="title-bloc fs-1 fw-bold mt-3"><?php echo get_field("titolo_esercizi"); ?></h1>
                 <div class="d-flex justify-content-between">
                     <div class="col-6 col-lg-6">
-                        <h5 class="subtitle py-2 text-uppercase"><?php echo get_field("sottotitolo_quarto"); ?></h5>
+                        <h5 class="subtitle py-2 text-uppercase"><?php echo get_field("sottotitolo_esercizi"); ?></h5>
                     </div>
                     <div class="col-6 col-lg-6 text-end mb-3">
-                        <a class="btn-test-tax btn-border-radius-bleu mx-auto" href="<?php echo site_url('/esercizi')?>"><?php echo get_field("button_esercizi"); ?></a>
+                        <a class="btn-test-tax btn-border-radius-bleu mx-auto" href="<?php echo site_url('/esercizi')?>"><?php echo get_field("bottone_esercizi"); ?></a>
                     </div>
                 </div>
-                <p><?php echo get_field("paragrafo_quarto"); ?></p>
+                <p><?php echo get_field("descrizione_esercizi"); ?></p>
             </div>
             <div class="row mt-5 mb-5">
                 <?php exercise(4);?>

@@ -7,10 +7,7 @@ Author URI: https://a-piu.it
 body{
     font-family: 'Montserrat', sans-serif;
 }
-ul.navbar-nav {
-    gap: 45px;
-    /*text-shadow: 4px 4px 2px rgba(0,0,0,0.6);*/
-}
+
 img.login {
     width: 30px;
     height: 30px;
@@ -48,10 +45,7 @@ img.logo {
     color:#aca29b;
 }
 
-.menu-primary{
-    background-color: #06449d;
-    height: 92px;
-}
+
 .nav-link{
     color: white;
 }
@@ -201,17 +195,6 @@ a.btn-yellow {
     background-color: #385262;
 }
 
-.esercizi .card-footer{
-    background-color: transparent;
-}
-.card.esercizi {
-    display: grid;
-    grid-template-rows: 50% 38% 12%;
-    min-height: 400px;
-}
-.card.esercizi iframe.w-100 {
-    border-radius: 10px;
-}
 .main-content-tax .btn-detail-documento{
     font-size: 20px;
 }
@@ -526,13 +509,6 @@ input.form-check-input.answer {
 span.areaRischio{
     font-size: 11px;
 }
-
-.card.esercizi{
-     background-color: transparent;
-     border: 0;
-     border-radius: 0;
-}
-
 
 .question .msgError{
     display: none;
