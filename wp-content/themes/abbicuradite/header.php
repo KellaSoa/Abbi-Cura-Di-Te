@@ -49,7 +49,7 @@
         </div>
     </div>
 </nav>
-<nav class="navbar text-white text-uppercase navbar-expand-lg menu-primary py-3 sticky-top  nav-menu">
+<nav class="navbar navbar-dark text-white text-uppercase navbar-expand-lg menu-primary py-3 sticky-top  nav-menu">
     <div class="container">
         <a class="navbar-brand" href="<?php echo site_url() ?>"><img class="logo" src="<?php echo get_theme_file_uri('/images/logo.png'); ?>" alt="logo"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
