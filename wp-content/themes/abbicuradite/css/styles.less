@@ -30,13 +30,13 @@
   height: 92px;
 
   .container{
-    @media screen and (max-width: @small) {
+    @media screen and (max-width: @normal) {
       max-width: 100%;
       padding: 0;
     }
 
     .navbar-brand, .navbar-toggler{
-      @media screen and (max-width: @small) {
+      @media screen and (max-width: @normal) {
         margin-left: 20px;
       }
     }
@@ -48,14 +48,14 @@
 
       &:hover, &.active, &:focus {
         color: #fff !important;
-        @media screen and (max-width: @small) {
+        @media screen and (max-width: @normal) {
           color: #444 !important;
         }
       }
     }
 
     .nav-item{
-      @media screen and (max-width: @small) {
+      @media screen and (max-width: @normal) {
         padding: 10px 20px;
         border-bottom: 1px solid #ddd;
       }
@@ -64,7 +64,7 @@
   }
 
   .navbar-collapse{
-    @media screen and (max-width: @small) {
+    @media screen and (max-width: @normal) {
       background: #fff;
       box-shadow: 0 5px 10px #ddd;
     }
@@ -72,12 +72,12 @@
     ul{
       li{
         a{
-          @media screen and (max-width: @small) {
+          @media screen and (max-width: @normal) {
             color: #444 !important;
           }
 
           &:hover, &.active, &:focus {
-            @media screen and (max-width: @small) {
+            @media screen and (max-width: @normal) {
               color: #444 !important;
             }
           }
@@ -596,7 +596,15 @@ a{
         color: #000;
         padding-right: 20px;
       }
+
+      &.bloc-sex{
+        input{
+          margin-right: 10px;
+        }
+      }
     }
+
+
   }
   .error-send{
     color: red;
@@ -891,6 +899,7 @@ a{
       font-weight: 600 !important;
     }
   }
+
 }
 #success_message {
   .modal-header{

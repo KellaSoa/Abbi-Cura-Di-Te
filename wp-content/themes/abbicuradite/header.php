@@ -65,10 +65,10 @@
                         Aree di rischio
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item menu-sbas" href="<?php echo site_url('/area-rischio/sbas') ?>"><span class="fw-bold">SBAS</span>-Sovracarrico biomecanico arti superiori</a></li>
-                        <li><a class="dropdown-item menu-mmc" href="<?php echo site_url('/area-rischio/mmc') ?>"><span class="fw-bold">MMC</span>-movimentazioni manuale dei carichi</a></li>
-                        <li><a class="dropdown-item menu-vdt" href="<?php echo site_url('/area-rischio/vdt') ?>"><span class="fw-bold">VDT</span>-Postazioni lavoro videoterminali</a></li>
-                        <li><a class="dropdown-item menu-pst" href="<?php echo site_url('/area-rischio/pst') ?>"><span class="fw-bold">PST</span>-Posture</a></li>
+                        <li><a class="dropdown-item" href="<?php echo site_url('/area-rischio/mmc') ?>"><span class="fw-bold">MMC</span> - Movimentazione Manuale dei Carichi</a></li>
+                        <li><a class="dropdown-item " href="<?php echo site_url('/area-rischio/sbas') ?>"><span class="fw-bold">SBAS</span> - Sovraccarico biomeccanico arti superiori</a></li>
+                        <li><a class="dropdown-item" href="<?php echo site_url('/area-rischio/vdt') ?>"><span class="fw-bold">VDT</span> - Postazione lavoro videoterminale</a></li>
+                        <li><a class="dropdown-item" href="<?php echo site_url('/area-rischio/pst') ?>"><span class="fw-bold">PST</span> - Postura</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
