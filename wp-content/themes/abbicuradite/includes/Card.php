@@ -15,7 +15,7 @@ function Card($sectorUser)
         <?php if (!empty($terms)) {
             $term = $terms[0] ?? new WP_Term();
             if ($allTest['has_sector'] && is_user_logged_in()) { ?>
-                <div class="col col-sm-6 col-lg-3 my-3">
+                <div class="col col-sm-6 col-lg-4 my-3">
                     <?php get_template_part('template-parts/card-test-User', null, ['term' => $term]); ?>
                 </div>
             <?php } elseif (!is_user_logged_in() || (is_user_logged_in() && current_user_can('administrator'))) {
@@ -25,7 +25,7 @@ function Card($sectorUser)
                 }
                 $terms_array[] = $term->term_id;
                 ?>
-                <div class="col col-sm-6 col-lg-3 my-3">
+                <div class="col col-sm-6 col-lg-4 my-3">
                     <?php
                     get_template_part('template-parts/card-test', null, ['term' => $term]); ?> 
                 </div>

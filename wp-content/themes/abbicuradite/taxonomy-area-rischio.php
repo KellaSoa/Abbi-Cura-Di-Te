@@ -18,12 +18,19 @@ $title2 = get_field('titolo_due', $termTaxonomy);
 $userId = get_current_user_id();
 $userInfo = get_userdata($userId);
 $userMeta = get_user_meta($userId);
-$id_page_esercizi = 368;
+//$id_page_esercizi = 368;
 $id_page_test = 344;
+$objPost = get_queried_object();
 
 global $wpdb;
 $current_user = wp_get_current_user();
 $dataTestUser = $wpdb->get_results("SELECT * FROM wp_valutazione WHERE user_id = $current_user->ID");
+
+$video = get_field("video_gallery", 609);
+$video_area = [];
+foreach ($video as $i => $item) {
+    if(!empty($item['area_di_rischio_video_youtube']) && $item['area_di_rischio_video_youtube']->term_id == $objPost->term_id) $video_area[] = $item;
+}
 ?>
 <?php get_template_part('template-parts/etichetta-menu-valutazione', 'etichetta-menu-valutazione', ['user' => $dataTestUser]); ?>
 
@@ -38,7 +45,7 @@ $dataTestUser = $wpdb->get_results("SELECT * FROM wp_valutazione WHERE user_id =
                 <div class="btn-single-pg-aree d-flex mt-5">
                     <a class="btn-scopri text-white" href="#sfoglia-le-slide"><?php echo get_field('btn1', $termTaxonomy); ?></a>
                     <a class="btn-scopri text-white" href="#i-nostri-test"><?php echo get_field('btn2', $termTaxonomy); ?></a>
-                    <a class="btn-scopri text-white" href="#esercizi-e-consigli" ><?php echo get_field('btn3', $termTaxonomy); ?></a>
+                    <?php /*<a class="btn-scopri text-white" href="#esercizi-e-consigli" ><?php echo get_field('btn3', $termTaxonomy); ?></a>*/?>
                 </div>
             </div>
 
@@ -48,17 +55,17 @@ $dataTestUser = $wpdb->get_results("SELECT * FROM wp_valutazione WHERE user_id =
 <?php
 // get_template_part("template-parts/banner-questionario-valutazione");
 $titleArea = strtoupper($term->slug);
-$objPost = get_queried_object(); ?>
+?>
 <div class="main-content-tax" id="sfoglia-le-slide">
     <div class="container-fluid content">
         <div class="container pt-5">
             <div class="row align-items-center py-5">
-                <div class="col detail-tax">
+                <div class="col-sm-6 detail-tax">
                     <h1 class="title-bloc fs-1 fw-bold"><?php echo get_field('titolo_descrizione', $termTaxonomy); ?></h1>
                     <h5 class="subtitle text-uppercase"><?php echo get_field('sottotitolo_descrizione', $termTaxonomy); ?></h5>
                     <div class="pt-1"><?php echo get_field('testo_descrizione', $termTaxonomy); ?></div>
                 </div>
-                <div class="col text-center">
+                <div class="col-sm-6 text-center">
                     <a href="" class="btn-detail-documento ps-3 pe-3 pt-1 pb-1 text-white text-uppercase" data-area="testCarousel<?php echo $titleArea; ?>" data-tax="<?php echo $titleArea; ?>" data-bs-toggle="modal" data-bs-target="#docModal<?php echo $titleArea; ?>">
                         <img src="<?php echo $ebookImg['url']; ?>" alt="">
                     </a>
@@ -67,29 +74,53 @@ $objPost = get_queried_object(); ?>
         </div>
     </div>
     <?php ModalStudio($term); ?>
+
+
+    <div class="container my-5">
+        <div class="row align-items-center mt-3 mb-5 justify-content-center">
+            <div class="col-12 text-center">
+                <h1 class="title-bloc fs-1 fw-bold"><?php echo get_field("titolo_blocco_video", $termTaxonomy); ?></h1>
+                <h5 class="subtitle py-2 text-uppercase"><?php echo get_field("sottotitolo_blocco_video", $termTaxonomy); ?></h5>
+                <p><?php echo get_field("descrizione_blocco_video", $termTaxonomy); ?></p>
+            </div>
+        </div>
+        <div class="row row-video-gallery justify-content-center">
+            <?php
+            foreach ($video_area as $k => $v) {
+                get_template_part("template-parts/card-video", 'card-video', ["video" => $v, "view_taxonomy" => false]);
+            }
+            ?>
+        </div>
+        <div class="row">
+            <?php if(!empty(get_field("bottone_blocco_video", $termTaxonomy))):?>
+                <div class="col-12 text-center">
+                    <a class="btn-test-tax btn-border-radius-bleu mx-auto" href="<?php echo site_url('/video-gallery')?>"><?php echo get_field("bottone_blocco_video", $termTaxonomy); ?></a>
+                </div>
+            <?php endif;?>
+        </div>
+    </div>
+
     <div class="container-fluid mb-5 bloc-content test-tax">
         <div class="container bloc-content">
-            <div class="row align-items-center">
-                <div class=" py-5 d-flex justify-content-between">
+            <div class="row align-items-center py-5">
                     <div class="col-12 col-lg-9">
                         <h2 class="text-white fw-bold text-uppercase"><?php echo get_field('titolo_banner_preview', $id_page_test); ?></h2>
                     </div>
-                    <div class="col-12 col-lg-3 text-end">
+                    <div class="col-12 col-lg-3 text-center py-3">
                         <a class="btn-test-tax btn-border-radius-bleu mx-auto" href="#i-nostri-test"><?php echo get_field('cta_banner_preview', 344); ?></a>
                     </div>
-                </div>
             </div>
         </div>
     </div>
     <div class="container-fluid content bg-white">
         <div class="container mb-5">
-            <div class="row my-5">
-                <div class="col-12">
-                    
+            <div class="row my-5  justify-content-center">
+                <div class="col-12 text-center">
+
                     <h1 class="title-bloc fs-1 fw-bold mb-4" id="i-nostri-test"><?php echo get_field('testo_banner_preview', $id_page_test); ?></h1>
                 </div>
             </div>
-            <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
                 <?php
                 $valueGet = getTestUserBySector();
                 $sectorCurrentUser = $valueGet['sectorCurrentUser'];
@@ -115,6 +146,8 @@ $objPost = get_queried_object(); ?>
             </div>
         </div>
     </div>
+
+
 
     <?php /*
     <div class="container-fluid content pb-5">

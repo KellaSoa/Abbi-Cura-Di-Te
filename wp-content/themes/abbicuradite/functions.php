@@ -12,7 +12,7 @@ function wpdocs_theme_name_scripts()
     wp_enqueue_style('bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap-modal-carousel.css');
     wp_enqueue_style('style', get_stylesheet_uri());
     wp_enqueue_style('bootstrap-modal-carousel', get_theme_file_uri('/css/bootstrap-modal-carousel.css'));
-    wp_enqueue_style('abbicuradite-style', get_stylesheet_directory_uri().'/css/styles.css', [], '3');
+    wp_enqueue_style('abbicuradite-style', get_stylesheet_directory_uri().'/css/styles.css', [], '4');
 
     wp_enqueue_style('select2-css', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css');
 
@@ -446,14 +446,18 @@ add_filter('acf/load_field/name=color', 'acf_load_color_field_choices');
 add_action('add_meta_boxes', 'csv_register_meta_boxes');
 function csv_register_meta_boxes()
 {
-    add_meta_box('eb-export-csv', __('EXPORT CSV', 'textdomain'), 'export_csv_display', 'test', 'side');
+    add_meta_box('eb-export-csv', __('EXPORT RISPOSTE CSV', 'textdomain'), 'export_csv_display', 'test', 'side');
 }
 
 function export_csv_display()
 {
     $postID = intval($_GET['post']);
     ?>
-        <a target="_blank" href="<?php echo admin_url("admin-ajax.php?post={$postID}&action=export_csv"); ?>" class="button button-primary button-large" style="width: 100%;">EXPORT</a>
+        <p>
+            Scarica il report delle risposte degli utenti.
+        </p>
+
+        <a target="_blank" href="<?php echo admin_url("admin-ajax.php?post={$postID}&action=export_csv"); ?>" class="button button-primary button-large" style="width: 100%; text-align:center">EXPORT</a>
     <?php
     echo '<b';
 }
@@ -463,7 +467,8 @@ function export_csv()
 {
     // header csv
     $postID = intval($_GET['post']);
-    $filename = get_the_title($postID).'.csv';
+    $timestamp = date('Y-m-d_H-i');
+    $filename = str_replace(' ','-', get_the_title($postID)).'_'.$timestamp.'.csv';
     header('Content-Type: text/csv');
     header('Content-Disposition: attachment; filename="'.$filename.'"');
 

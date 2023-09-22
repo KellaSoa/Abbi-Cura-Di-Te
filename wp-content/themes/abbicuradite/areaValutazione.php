@@ -10,7 +10,7 @@ get_template_part("template-parts/banner-area-riservata");
                 <?php get_template_part("template-parts/navbar-area-riservata"); ?>
             </div>
             <div class="col-9 contentPageArea">
-                <?php get_template_part("template-parts/valutazione"); ?>
+                <?php get_template_part("template-parts/valutazione", "valutazione", ["page" => "Valutazione"]); ?>
                 <div class="row">
                     <div class="btn-single-pg-aree mt-5 mb-5 ">
                         <a class="btn-scopri ps-3 pe-3 pt-2 pb-2 text-white fw-bold" href="<?php echo site_url('/area-studio');?>">Sfoglia i materiali informativi</a>

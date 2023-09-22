@@ -12,7 +12,7 @@ $userMeta = get_user_meta( $userId);
 <div class="main-content-test">
     <div class="container w-100 mb-5">
         <h1 class="title-bloc fs-1 fw-bold mt-5 mb-3"><?php echo get_field("titolo_uno"); ?></h1>
-        <p class="mb-5"><?php echo get_field("paragrafo_uno"); ?></p>
+        <div class="mb-5"><?php echo get_field("paragrafo_uno"); ?></div>
         <div class="row row-cols-1 row-cols-md-3 g-4">
 
             <?php

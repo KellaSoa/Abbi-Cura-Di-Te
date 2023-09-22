@@ -6,7 +6,7 @@ get_template_part("template-parts/banner-small");
 $objPost = get_queried_object();
 
 $video = get_field("video_gallery");
-
+//print_r($video);
 ?>
 <div id="page" class="main mt-5">
     <div class="container w-100 mb-5">
@@ -15,31 +15,18 @@ $video = get_field("video_gallery");
                 <?php if(!empty(get_field("titolo_uno"))):?>
                 <h1 class="title-bloc fs-1 fw-bold mt-5 mb-3"><?php echo get_field("titolo_uno"); ?></h1>
                 <?php endif;?>
+                <h5 class="subtitle text-uppercase"><?php echo get_field('sottotitolo_uno'); ?></h5>
                 <?php if(!empty(get_field("paragrafo_uno",$objPost))):?>
-                <p class="mb-5"><?php echo get_field("paragrafo_uno",$objPost); ?></p>
+                <div class="mt-4 mb-5"><?php echo get_field("paragrafo_uno",$objPost); ?></div>
                 <?php endif;?>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="row row-video-gallery">
-                    <?php foreach ($video as $k => $v) :?>
-                        <div class="col-sm-6 col-md-4">
-                            <h4 class="text-uppercase"><?php echo $v['titolo_video_youtube']?></h4>
-                            <div class="pb-3"><?php echo $v['caption_video_youtube']?></div>
-                            <?php echo $v['link_video_youtube']?>
-                            <div><?php
-                                //echo $v['area_di_rischio_video_youtube'];
-                                $terms = get_the_terms($v['area_di_rischio_video_youtube'], "area-rischio");
 
-                                ?></div>
-                        </div>
-                    <?php endforeach;?>
-                </div>
-            </div>
-
+        <div class="row row-video-gallery">
+            <?php
+            foreach ($video as $k => $v)  get_template_part("template-parts/card-video", 'card-video', ["video" => $v, "view_taxonomy" => true]);
+            ?>
         </div>
-
     </div>
 </div>
 <?php get_footer(); ?>

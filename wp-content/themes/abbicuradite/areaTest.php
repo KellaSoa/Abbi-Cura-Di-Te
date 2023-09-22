@@ -28,13 +28,13 @@ $valueTrueAnswers = getTrueAnswers($domande, $lastTest); ?>
                     <h5 class="pt-2 subtitle text-uppercase">
                         <?php echo get_field("sottotitolo_valutazione_test",get_the_ID()); ?>
                     </h5>
-                    <?php get_template_part("template-parts/valutazione");?>
+                    <?php get_template_part("template-parts/valutazione", "valutazione", ["page" => "Test"]);?>
                 </div>
                 <?php endif; ?>
 
 
                 <div id="area-test">
-                    <h1 class="title-bloc fs-1 fw-bold"> <?php echo get_field("titolo_test",get_the_ID()); ?></h1>
+                    <h1 class="title-bloc fs-1 fw-bold"> <?php echo get_field("titolo_test"); ?></h1>
                     <h5 class="pt-2 pb-5 subtitle text-uppercase">
                         <?php echo get_field("sottotitola_test");?>
                     </h5>

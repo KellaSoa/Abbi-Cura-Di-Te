@@ -26,16 +26,68 @@
 }
 
 .menu-primary{
+  background-color: @primary-color;
+  height: 92px;
 
-    .navbar-nav {
+  .container{
+    @media screen and (max-width: @small) {
+      max-width: 100%;
+      padding: 0;
+    }
 
-      .nav-link {
+    .navbar-brand, .navbar-toggler{
+      @media screen and (max-width: @small) {
+        margin-left: 20px;
+      }
+    }
+  }
 
-        &:hover, &.active, &:focus {
-          color: #fff !important;
+  .navbar-nav {
+
+    .nav-link {
+
+      &:hover, &.active, &:focus {
+        color: #fff !important;
+        @media screen and (max-width: @small) {
+          color: #444 !important;
         }
       }
     }
+
+    .nav-item{
+      @media screen and (max-width: @small) {
+        padding: 10px 20px;
+        border-bottom: 1px solid #ddd;
+      }
+
+    }
+  }
+
+  .navbar-collapse{
+    @media screen and (max-width: @small) {
+      background: #fff;
+      box-shadow: 0 5px 10px #ddd;
+    }
+
+    ul{
+      li{
+        a{
+          @media screen and (max-width: @small) {
+            color: #444 !important;
+          }
+
+          &:hover, &.active, &:focus {
+            @media screen and (max-width: @small) {
+              color: #444 !important;
+            }
+          }
+
+        }
+      }
+    }
+  }
+
+
 }
 
 .site-footer{
@@ -43,6 +95,10 @@
   color: #06547a;
   font-weight: bold;
   font-size: 0.9rem;
+
+  ul{
+    padding:0;
+  }
 
   li {
     list-style-type: none;
@@ -371,6 +427,19 @@ a{
   input[type=checkbox]:checked + .wpcf7-list-item-label,
   input[type=radio]:checked + .wpcf7-list-item-label {
     background-color: @category_extralight_MMC;
+  }
+
+  &.quiz_MMC {
+    background-color: @category_extralight_MMC;
+
+    .risposte {
+      background-color: @category_MMC;
+    }
+
+    input[type=checkbox]:checked + .wpcf7-list-item-label,
+    input[type=radio]:checked + .wpcf7-list-item-label {
+      background-color: @category_extralight_MMC;
+    }
   }
 
   &.quiz_SBAS{
@@ -898,5 +967,24 @@ a{
 .row-video-gallery{
   iframe{
     width: 100% !important;
+  }
+}
+
+.esercizi, .row-video-gallery {
+  .card-footer{
+    background-color: transparent;
+  }
+
+  .card {
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
+    .card-body{
+      padding: 0;
+    }
+
+    iframe.w-100 {
+      border-radius: 10px;
+    }
   }
 }
