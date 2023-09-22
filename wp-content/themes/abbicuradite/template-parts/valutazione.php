@@ -94,8 +94,8 @@
 
     <?php }?>
 
-        <div class="col-md-12 col-lg-6">
-            <div class="bottom-canvas" style="position: absolute; bottom: 0; right: 0; width: 20%; height: 20px;background-color: white;
+        <div class="col-md-12 col-lg-6 position-relative">
+            <div class="bottom-canvas" style="position: absolute; bottom: 0; left: 0; width: 20%; height: 20px;background-color: white;
             z-index: 1;"></div>
             <div class="resultValuta">
                 <div id="chartContainer" style="height: 370px; width: 100%; "></div>

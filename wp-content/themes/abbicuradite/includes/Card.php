@@ -25,7 +25,7 @@ function Card($sectorUser)
                 }
                 $terms_array[] = $term->term_id;
                 ?>
-                <div class="col col-sm-6 col-lg-4 my-3">
+                <div class="col col-sm-6 col-lg-3 my-3">
                     <?php
                     get_template_part('template-parts/card-test', null, ['term' => $term]); ?> 
                 </div>
