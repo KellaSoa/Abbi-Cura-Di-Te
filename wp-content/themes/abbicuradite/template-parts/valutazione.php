@@ -82,17 +82,18 @@
             <div class="Resultdescription">
                 <h5 class="fw-bold colorFinal <?php echo $colorFinal; ?>"><?php showMessageColor($colorFinal); ?></h5>
                 <?php echo $legendFinal; ?>
-                <?php if($args['page'] == 'Test'):?>
+                <?php if ($args['page'] == 'Test') { ?>
                 <div class="mt-5">
                     <a href="#area-test" class="btn-scopri">METTITI ALLA PROVA</a>
                 </div>
-                 <?php endif;?>
+                 <?php }?>
 
             </div>
         </div>
 
 
     <?php }?>
+
 
         <div class="col-md-12 col-lg-6 position-relative">
             <div class="bottom-canvas" style="position: absolute; bottom: 0; left: 0; width: 20%; height: 20px;background-color: white;

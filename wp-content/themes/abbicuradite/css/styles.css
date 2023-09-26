@@ -111,16 +111,27 @@ a.btn-yellow {
     box-shadow: 0 5px 10px #ddd;
   }
 }
+@media screen and (max-width: 480px) {
+  .menu-primary .navbar-collapse ul li a {
+    font-size: 10px;
+  }
+}
 @media screen and (max-width: 992px) {
   .menu-primary .navbar-collapse ul li a {
     color: #444 !important;
   }
 }
+@media screen and (max-width: 480px) {
+  .menu-primary .navbar-collapse ul li a:hover,
+  .menu-primary .navbar-collapse ul li a:focus {
+    background: blue;
+  }
+}
 @media screen and (max-width: 992px) {
   .menu-primary .navbar-collapse ul li a:hover,
-  .menu-primary .navbar-collapse ul li a.active,
   .menu-primary .navbar-collapse ul li a:focus {
     color: #444 !important;
+    background: blue;
   }
 }
 .site-footer {

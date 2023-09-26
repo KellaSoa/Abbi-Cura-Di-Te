@@ -468,7 +468,7 @@ function export_csv()
     // header csv
     $postID = intval($_GET['post']);
     $timestamp = date('Y-m-d_H-i');
-    $filename = str_replace(' ','-', get_the_title($postID)).'_'.$timestamp.'.csv';
+    $filename = str_replace(' ', '-', get_the_title($postID)).'_'.$timestamp.'.csv';
     header('Content-Type: text/csv');
     header('Content-Disposition: attachment; filename="'.$filename.'"');
 

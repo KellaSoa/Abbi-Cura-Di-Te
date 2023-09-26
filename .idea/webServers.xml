@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="83dbbc3f-d4c2-4c30-a507-c83897cf5d41" name="AbbicuraditeTurismo" url="http://86.107.32.26">
+        <fileTransfer rootFolder="/public_html" host="86.107.32.26" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
