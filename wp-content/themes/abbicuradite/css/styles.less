@@ -79,9 +79,13 @@
             color: #444 !important;
           }
 
-          &:hover, &.active, &:focus {
+          &:hover, &:focus {
+            @media screen and (max-width: @small) {
+              background: blue;
+            }
             @media screen and (max-width: @normal) {
               color: #444 !important;
+              background: blue;
             }
           }
 

@@ -61,9 +61,17 @@
                     <a class="nav-link active" aria-current="page" href="<?php echo site_url('/') ?>">Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle"  href="<?php echo site_url('/area-rischio/mmc') ?>" id="navbarDropdown" role="button" data-bs-hover="dropdown" aria-expanded="false">
-                        Aree di rischio
-                    </a>
+                    <?php $isMob = is_numeric(strpos(strtolower($_SERVER['HTTP_USER_AGENT']), 'mobile'));
+                    if ($isMob) :?>
+                        <a class="nav-link dropdown-toggle"   id="navbarDropdown" role="button" data-bs-hover="dropdown" aria-expanded="false">
+                            Aree di rischio
+                        </a>
+                    <?php else : ?>
+                        <a class="nav-link dropdown-toggle"  href="<?php echo site_url('/area-rischio/mmc') ?>" id="navbarDropdown" role="button" data-bs-hover="dropdown" aria-expanded="false">
+                            Aree di rischio
+                        </a>
+                   <?php endif; ?>
+
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="<?php echo site_url('/area-rischio/mmc') ?>"><span class="fw-bold">MMC</span> - Movimentazione Manuale dei Carichi</a></li>
                         <li><a class="dropdown-item " href="<?php echo site_url('/area-rischio/sbas') ?>"><span class="fw-bold">SBAS</span> - Sovraccarico biomeccanico arti superiori</a></li>
