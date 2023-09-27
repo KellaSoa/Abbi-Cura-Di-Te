@@ -375,7 +375,7 @@ img.card-img-top {
     border-radius: 15px;
 }
 
-input#wp-submit , input.sendUser{
+input#wp-submit , input.sendUser, .tml-lostpassword button , .tml-submit-wrap button{
     border-radius: 20px;
     text-decoration: none;
     background-color: #17aeff;
@@ -383,6 +383,11 @@ input#wp-submit , input.sendUser{
     color: white;
     padding: 5px 10px;
     min-width: 170px;
+}
+input#user_login{
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    margin-top: 5px;
 }
 
 #loginform label,.content h1,form label {

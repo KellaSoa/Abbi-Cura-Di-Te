@@ -1,2 +1,4 @@
 wp-config.php
 .htaccess
+wp-admin/images/
+wp-content/themes/abbicuradite/images/ 

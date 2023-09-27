@@ -216,6 +216,7 @@ function update_register_user()
         update_user_meta($new_user_id, 'company_user', $company_user);
         update_user_meta($new_user_id, 'iva_company', $iva_company);
         update_user_meta($new_user_id, 'sector', $user_settore);
+
         // send email to admin
         // wp_new_user_notification($new_user_id);
         // log the user in
@@ -305,7 +306,7 @@ function add_test_valutazione_user()
 }
 
 /**
- * @param WP_User $user Logged user's data.
+ * @param WP_User $user logged user's data
  *
  * @return string
  */
@@ -572,6 +573,27 @@ function getDataUser($postID)
 
     return $idUsers;
 }
+add_action('login_form_middle', 'add_lost_password_link');
+function add_lost_password_link()
+{
+    return '<a href='.wp_lostpassword_url().'>Password dimenticata?</a>';
+}
+
+// change login label
+function gettext_filter_lost_password($translation, $orig, $domain)
+{
+    switch ($orig) {
+        case 'Username or Email Address':
+            $translation = 'Indirizzo Email';
+            break;
+    }
+
+    return $translation;
+}
+add_filter('gettext', 'gettext_filter_lost_password', 10, 3);
+
+
+
 // taxonomy default value for post_type esercizi and test
 /*function mfields_set_default_object_terms( $post_id, $post ) {
     if ($post->post_type == 'test' || $post->post_type == 'esercizi')
