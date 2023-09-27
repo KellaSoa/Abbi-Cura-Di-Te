@@ -75,7 +75,7 @@ $titleArea = strtoupper($term->slug);
     </div>
     <?php ModalStudio($term); ?>
 
-
+    <?php if(!empty($video_area)):?>
     <div class="container my-5">
         <div class="row align-items-center mt-3 mb-5 justify-content-center">
             <div class="col-12 text-center">
@@ -99,7 +99,7 @@ $titleArea = strtoupper($term->slug);
             <?php endif;?>
         </div>
     </div>
-
+    <?php endif;?>
     <div class="container-fluid mb-5 bloc-content test-tax">
         <div class="container bloc-content">
             <div class="row align-items-center py-5">

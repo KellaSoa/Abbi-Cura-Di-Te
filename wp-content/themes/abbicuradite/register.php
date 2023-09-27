@@ -217,15 +217,16 @@ $results = $wpdb->get_results("SELECT * FROM regioni Order By nome");
                                 </div>
                             </div>
                         </fieldset>
+
+                        <div id="error"></div>
+
                         <div class="control-group text-end">
                             <input type="hidden" name="vicode_csrf" value="<?php echo wp_create_nonce('vicode-csrf');?>">
                             <p class="error-send error"></p>
                             <button type="submit" class="btn btn-primary btn-scopri sendUser mt-3 mx-0">INVIA</button>
                             <!--input class="sendUser" type="submit" value="INVIA"/-->
                         </div>
-                        <div id="error">
 
-                        </div>
                     </form>
                 </div>
             </div>

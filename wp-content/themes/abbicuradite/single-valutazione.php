@@ -35,17 +35,15 @@ $id_page_valutazione = 290;
 ?>
 <div class="main quiz">
 
-    <div class="container p-5 d-flex justify-content-center">
+    <div class="container p-5 d-flex ">
         <?php
         while (have_posts()) {
             the_post();
             ?>
             <div class="row my-5">
-                <div class="col-sm-8 mx-auto text-center">
-                    <h1 class="fs-2 fw-bold pt-4 subtitle text-uppercase text-bold text-center"><?php the_title(); ?></h1>
-
+                <div class="col-sm-12 col-lg-10 col-xl-6">
+                    <h1 class="fs-2 fw-bold pt-4 mb-4 subtitle text-uppercase text-bold"><?php the_title(); ?></h1>
                     <div><?php the_content(); ?></div>
-
                 </div>
             </div>
 

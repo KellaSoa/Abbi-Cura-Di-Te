@@ -45,7 +45,7 @@ function blockValutazione($domande,$userId){
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>
-            <div class="error<?php echo $d; ?> msgError valutazione text-red ms-5 fw-bold"> Deve scegliere una risposta</div>
+            <div class="error<?php echo $d; ?> msgError valutazione text-red mt-2 ms-5 fw-bold">Selezionare una risposta</div>
         </div>
     </div>
     <?php

@@ -216,6 +216,7 @@ function update_register_user()
         update_user_meta($new_user_id, 'company_user', $company_user);
         update_user_meta($new_user_id, 'iva_company', $iva_company);
         update_user_meta($new_user_id, 'sector', $user_settore);
+
         // send email to admin
         // wp_new_user_notification($new_user_id);
         // log the user in
@@ -305,7 +306,7 @@ function add_test_valutazione_user()
 }
 
 /**
- * @param WP_User $user Logged user's data.
+ * @param WP_User $user logged user's data
  *
  * @return string
  */
@@ -468,7 +469,7 @@ function export_csv()
     // header csv
     $postID = intval($_GET['post']);
     $timestamp = date('Y-m-d_H-i');
-    $filename = str_replace(' ','-', get_the_title($postID)).'_'.$timestamp.'.csv';
+    $filename = str_replace(' ', '-', get_the_title($postID)).'_'.$timestamp.'.csv';
     header('Content-Type: text/csv');
     header('Content-Disposition: attachment; filename="'.$filename.'"');
 
@@ -572,6 +573,12 @@ function getDataUser($postID)
 
     return $idUsers;
 }
+add_action('login_form_middle', 'add_lost_password_link');
+function add_lost_password_link()
+{
+    return '<a href='.wp_lostpassword_url().'>Password dimenticata?</a>';
+}
+
 // taxonomy default value for post_type esercizi and test
 /*function mfields_set_default_object_terms( $post_id, $post ) {
     if ($post->post_type == 'test' || $post->post_type == 'esercizi')

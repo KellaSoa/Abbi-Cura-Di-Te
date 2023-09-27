@@ -3,6 +3,14 @@ require_once __DIR__ .'/includes/esercizi.php';
 global $wpdb;
 $current_user = wp_get_current_user();
 $dataTestUser = $wpdb->get_results("SELECT * FROM wp_valutazione WHERE user_id = $current_user->ID");
+
+if (is_user_logged_in() && $dataTestUser) {
+    $link_questionario = site_url('/area-test');
+} elseif (is_user_logged_in() && !$dataTestUser) {
+    $link_questionario =  site_url('/valutazione/questionario');
+} else {
+    $link_questionario =  site_url('/login');
+}
 ?>
 <?php get_template_part("template-parts/etichetta-menu-valutazione", 'etichetta-menu-valutazione', ["user" => $dataTestUser]);?>
 
