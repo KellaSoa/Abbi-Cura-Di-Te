@@ -34,3 +34,11 @@ function getValutazioneUser(){
     return $idValutazione;
     /*end valutazione user*/
 }
+function getSectorSelectedInEachValutazione($post_id){
+    $sectors = get_field('settoreUtenti',$post_id);// sector selected for the valutazione
+    if (!empty($sectors) && is_array($sectors)) {
+        foreach ($sectors as $value) {
+            echo $value->post_title . '<br>';
+        }
+    }
+}

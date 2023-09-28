@@ -612,9 +612,21 @@ function filter_relationship_field_query($args, $field, $post_id) {
 
 add_filter('acf/fields/relationship/query', 'filter_relationship_field_query', 10, 3);
 
-// taxonomy default value for post_type esercizi and test
-/*function mfields_set_default_object_terms( $post_id, $post ) {
-    if ($post->post_type == 'test' || $post->post_type == 'esercizi')
-        wp_set_object_terms($post_id,'mmc', 'area-rischio',true);
+//Add column Sector in table postType Valutazione
+function custom_column_header($columns) {
+    $columns['custom_column'] = 'Settore';
+    return $columns;
 }
-add_action( 'save_post', 'mfields_set_default_object_terms', 30, 2 );*/
+$post_type ='valutazione';
+add_filter("manage_{$post_type}_posts_columns", 'custom_column_header');
+
+function custom_column_content($column, $post_id) {
+    if ($column == 'custom_column') {
+        getSectorSelectedInEachValutazione($post_id);
+    }
+}
+add_action("manage_{$post_type}_posts_custom_column", 'custom_column_content', 10, 2);
+//end add column Sector in table postType Valutazione
+//Order column in table postType Valutazione
+
+
