@@ -337,7 +337,8 @@ $results = $wpdb->get_results("SELECT * FROM regioni Order By nome");
                     {
                         let $err = jQuery("<div></div>");
                         $err.text(response.error[key]);
-                        jQuery("#error").append($err);
+                        jQuery("#error").show();
+                        jQuery("#error").html($err);
                     }
 
                 }
@@ -348,7 +349,8 @@ $results = $wpdb->get_results("SELECT * FROM regioni Order By nome");
                 var errorLabel = jQuery('form label').hasClass('error');
                 if(jQuery('.content #register-form label.error').is(":visible")){
                     console.log('shown');
-                }else{
+                }
+                else{
                     jQuery('.error-send').text('Spiacente, quello utenti esiste già!');
                 }
 

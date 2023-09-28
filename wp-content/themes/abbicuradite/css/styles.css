@@ -845,6 +845,7 @@ a .card {
   width: 100%;
 }
 .content #register-form #error {
+  display: none;
   background: #DC3545;
   padding: 20px;
   color: #fff;
