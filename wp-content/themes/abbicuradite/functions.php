@@ -2,6 +2,14 @@
 require_once __DIR__.'/includes/finishTest.php';
 require_once __DIR__.'/includes/getCountCorrectWrongTest.php';
 require_once __DIR__.'/includes/getFinalColorValutation.php';
+require_once __DIR__.'/includes/getValutazioneBySector.php';
+require_once __DIR__.'/includes/AllTestBySector.php';
+require_once __DIR__.'/includes/getValutazioneUser.php';
+require_once __DIR__.'/includes/allValutazioneBySector.php';
+
+
+
+
 
 add_action('wp_enqueue_scripts', 'wpdocs_theme_name_scripts');
 function wpdocs_theme_name_scripts()
@@ -592,7 +600,17 @@ function gettext_filter_lost_password($translation, $orig, $domain)
 }
 add_filter('gettext', 'gettext_filter_lost_password', 10, 3);
 
+function filter_relationship_field_query($args, $field, $post_id) {
+    // Check if this is the specific field you want to filter
+    if ($field['name'] === 'settoreUtenti') {
+        // Add a filter to the query to only show parent posts
+        $args['post_parent'] = 0;
+    }
 
+    return $args;
+}
+
+add_filter('acf/fields/relationship/query', 'filter_relationship_field_query', 10, 3);
 
 // taxonomy default value for post_type esercizi and test
 /*function mfields_set_default_object_terms( $post_id, $post ) {

@@ -10,11 +10,12 @@
     global $wpdb;
     $current_user = wp_get_current_user();
     $dataTestUser = $wpdb->get_results("SELECT * FROM wp_valutazione WHERE user_id = $current_user->ID");
-
     if (is_user_logged_in() && $dataTestUser) {
         $url_login = site_url('/area-test');
-    } elseif (is_user_logged_in() && !$dataTestUser) {
-        $url_login =  site_url('/valutazione/questionario');
+    } elseif (is_user_logged_in() && empty($dataTestUser)) {
+        $idValutazioneUser = getValutazioneUser();
+        $permalink = get_permalink($idValutazioneUser); // Get the permalink
+        $url_login =  $permalink;
     } else {
         $url_login =  site_url('/login');
     }

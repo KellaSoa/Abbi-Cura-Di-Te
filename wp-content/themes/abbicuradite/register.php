@@ -100,7 +100,7 @@ $results = $wpdb->get_results("SELECT * FROM regioni Order By nome");
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="control-group mb-3">
-                                        <label for="user_last">Codice Fiscale </label>
+                                        <label for="user_last">Codice Fiscale * </label>
                                         <input type="text" name="user_tax_id_code" id="user_tax_id_code" maxlength="16" class="form-control">
                                     </div>
                                 </div>
@@ -236,12 +236,12 @@ $results = $wpdb->get_results("SELECT * FROM regioni Order By nome");
 
 <script>
     jQuery(document).ready(function($) {
-        /*jQuery.validator.addMethod("codiceFiscale", function(value, element)
+        jQuery.validator.addMethod("codiceFiscale", function(value, element)
             {
                 return validateCF(value);
             },
             "Codice fiscale non valido."
-        );*/
+        );
         jQuery.validator.addMethod("pIVA", function(value, element)
             {
                 return validatePIVA(value);
@@ -257,7 +257,7 @@ $results = $wpdb->get_results("SELECT * FROM regioni Order By nome");
                     required: true,
                     equalTo: "#user_pass",
                 },
-                //user_tax_id_code: { codiceFiscale: true },
+                user_tax_id_code: { codiceFiscale: true },
                 iva_company: { pIVA: true },
             },
             messages: {
