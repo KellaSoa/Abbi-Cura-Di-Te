@@ -7,10 +7,6 @@ require_once __DIR__.'/includes/AllTestBySector.php';
 require_once __DIR__.'/includes/getValutazioneUser.php';
 require_once __DIR__.'/includes/allValutazioneBySector.php';
 
-
-
-
-
 add_action('wp_enqueue_scripts', 'wpdocs_theme_name_scripts');
 function wpdocs_theme_name_scripts()
 {
@@ -600,7 +596,9 @@ function gettext_filter_lost_password($translation, $orig, $domain)
 }
 add_filter('gettext', 'gettext_filter_lost_password', 10, 3);
 
-function filter_relationship_field_query($args, $field, $post_id) {
+// return only parent settore in relation with valutazione
+function filter_relationship_field_query($args, $field, $post_id)
+{
     // Check if this is the specific field you want to filter
     if ($field['name'] === 'settoreUtenti') {
         // Add a filter to the query to only show parent posts
@@ -612,21 +610,61 @@ function filter_relationship_field_query($args, $field, $post_id) {
 
 add_filter('acf/fields/relationship/query', 'filter_relationship_field_query', 10, 3);
 
-//Add column Sector in table postType Valutazione
-function custom_column_header($columns) {
+// Add column Sector in table postType Valutazione
+function custom_column_header($columns)
+{
     $columns['custom_column'] = 'Settore';
+
     return $columns;
 }
-$post_type ='valutazione';
+$post_type = 'valutazione';
 add_filter("manage_{$post_type}_posts_columns", 'custom_column_header');
 
-function custom_column_content($column, $post_id) {
+function custom_column_content($column, $post_id)
+{
     if ($column == 'custom_column') {
         getSectorSelectedInEachValutazione($post_id);
     }
 }
 add_action("manage_{$post_type}_posts_custom_column", 'custom_column_content', 10, 2);
-//end add column Sector in table postType Valutazione
-//Order column in table postType Valutazione
+// end add column Sector in table postType Valutazione
+// Begin Order column in table postType Valutazione
+function reorder_admin_columns($columns)
+{
+    $custom_column = $columns['custom_column'];
+    unset($columns['custom_column']);
+    $columns = array_slice($columns, 0, 2, true) + ['custom_column' => $custom_column] + array_slice($columns, 2, count($columns) - 2, true);
 
+    return $columns;
+}
+add_filter("manage_{$post_type}_posts_columns", 'reorder_admin_columns');
+// END Order column in table postType Valutazione
+// Add column Sector in table postType Test
+function custom_column_header_test($columns)
+{
+    $columns['custom_column'] = 'Settore';
 
+    return $columns;
+}
+$post_type = 'test';
+add_filter("manage_{$post_type}_posts_columns", 'custom_column_header_test');
+
+function custom_column_content_test($column, $post_id)
+{
+    if ($column == 'custom_column') {
+        getSectorSelectedInEachTest($post_id);
+    }
+}
+add_action("manage_{$post_type}_posts_custom_column", 'custom_column_content_test', 10, 2);
+// end add column Sector in table postType Test
+// Begin Order column in table postType Test
+function reorder_admin_columns_test($columns)
+{
+    $custom_column = $columns['custom_column'];
+    unset($columns['custom_column']);
+    $columns = array_slice($columns, 0, 2, true) + ['custom_column' => $custom_column] + array_slice($columns, 2, count($columns) - 2, true);
+
+    return $columns;
+}
+add_filter("manage_{$post_type}_posts_columns", 'reorder_admin_columns_test');
+// END Order column in table postType Test
