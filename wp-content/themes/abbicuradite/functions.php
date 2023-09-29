@@ -9,8 +9,6 @@ require_once __DIR__.'/includes/allValutazioneBySector.php';
 add_action('wp_enqueue_scripts', 'wpdocs_theme_name_scripts');
 require_once __DIR__.'/classes/UserCRM.php';
 
-
-
 function wpdocs_theme_name_scripts()
 {
     wp_enqueue_style('montserrat-font', 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
@@ -404,7 +402,7 @@ function cb_taxonomy_select_meta_box($post, $box)
                 <?php
             }
         }
-        ?>
+    ?>
     </div>
     <?php
 }
@@ -697,25 +695,29 @@ add_action('user_register', 'save_checkout_field');
 // END privacy register
 
 // BEGIN CRON
-function schedule_custom_event() {
-    if ( ! wp_next_scheduled( 'custom_csv_event' ) ) {
+function schedule_custom_event()
+{
+    if (!wp_next_scheduled('custom_csv_event')) {
         wp_schedule_event(strtotime('10:58:00'), 'daily', 'custom_csv_event');
     }
 }
 
-function custom_csv_event_callback() {
+function custom_csv_event_callback()
+{
     $processor = UserCRM::Instance();
     $processor->CSVProcessor();
 }
 
-add_action( 'custom_csv_event', 'custom_csv_event_callback' );
-//CRON USER CRM TASK
-add_action( 'init', 'schedule_custom_event' );
+add_action('custom_csv_event', 'custom_csv_event_callback');
+// CRON USER CRM TASK
+add_action('init', 'schedule_custom_event');
 
-function trigger_custom_event() {
-    do_action( 'custom_csv_event' );
+function trigger_custom_event()
+{
+    do_action('custom_csv_event');
 }
-function unschedule_custom_event() {
-    wp_clear_scheduled_hook( 'custom_csv_event' );
+function unschedule_custom_event()
+{
+    wp_clear_scheduled_hook('custom_csv_event');
 }
 // END CRON
