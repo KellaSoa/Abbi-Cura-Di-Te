@@ -14,17 +14,10 @@ class UserCRM
         self::$instance = &$this;
         global $wpdb;
         $this->wpdb = $wpdb;
-
         $this->table_name =$this->wpdb->prefix . "crm_user";
         $this->csv_file = CRM_FTP_PATH.'/export-TUR.csv';
         $this->log_file = CRM_FTP_PATH.'/log_file_import_csv.log';
         $this->log_details = CRM_FTP_PATH.'/log_import_csv.log';
-        //truncate table
-        $wpdb->query("TRUNCATE TABLE $this->table_name");
-        // make the log file with 0
-        file_put_contents($this->log_file, 0);
-        // delete last log
-        file_put_contents($this->log_details, "");
     }
 
     public static function Instance(): UserCRM
@@ -32,7 +25,14 @@ class UserCRM
         return is_null(self::$instance) ? new UserCRM() : self::$instance;
     }
 
-
+    public function truncateTableAndLog(){
+        //truncate table
+        $this->wpdb->query("TRUNCATE TABLE $this->table_name");
+        // make the log file with 0
+        file_put_contents($this->log_file, 0);
+        // delete last log
+        file_put_contents($this->log_details, "");
+    }
     public function CSVProcessor(){
         // Open the log file for writing (append mode)
         $log_handle = fopen($this->log_file, 'a');
@@ -110,11 +110,19 @@ class UserCRM
                 //fwrite($log_handle_details, "execute the next 1000 Lines\n");
                 exec('php '.$this->CSVProcessor());
             }
+            else{
+                fwrite($log_handle_details, "End Export Lines");
+            }
         } else {
             echo "Error opening file!";
         }
     }
 
+    public function getUserById($id){
+        $sql = "SELECT * FROM `wp_crm_user` WHERE `idDipendente` =$id";
+        print_r($sql);
+        return $this->wpdb->get_results($this->wpdb->prepare($sql));
+    }
 }
 UserCRM::Instance();
 

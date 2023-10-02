@@ -39,13 +39,13 @@ $results = $wpdb->get_results('SELECT * FROM regioni Order By nome');
                                 <div class="col-sm-6">
                                     <div class="control-group mb-3">
                                         <label for="user_pass">Password *</label>
-                                        <input type="password" name="user_pass" id="user_pass" class="form-control" >
+                                        <input type="password" name="user_pass" id="user_pass" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="control-group mb-3">
                                         <label for="user_pass_again">Conferma password *</label>
-                                        <input type="password" name="user_pass_again" id="user_pass_again" class="form-control" >
+                                        <input type="password" name="user_pass_again" id="user_pass_again" class="form-control" required >
                                     </div>
                                 </div>
                             </div>
