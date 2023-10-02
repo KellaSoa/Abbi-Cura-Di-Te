@@ -99,7 +99,11 @@ function register_user()
         update_user_meta($new_user_id, 'company_user', $company_user);
         update_user_meta($new_user_id, 'iva_company', $iva_company);
         update_user_meta($new_user_id, 'sector', $user_settore);
+
+        $checkout_option = isset($_POST['privacy_policy']) ? sanitize_text_field($_POST['privacy_policy']) : '';
+        update_user_meta($new_user_id, 'privacy_policy', $checkout_option);
         if ($new_user_id && !is_wp_error($new_user_id)) {
+
             // log the user in
             wp_setcookie($user_login, $user_pass, true);
             wp_set_current_user($new_user_id, $user_login);
@@ -108,7 +112,8 @@ function register_user()
             $response['success'] = true;
 
             // Return a JSON response
-            echo json_encode(['success' => true, 'redirect' => home_url('/area-test')]);
+
+           echo json_encode(['success' => true, 'redirect' => home_url('/area-test')]);
         } elseif (is_wp_error($new_user_id)) {
             echo json_encode(['success' => false, 'error' => $new_user_id->errors]);
         }
@@ -671,21 +676,21 @@ function reorder_admin_columns_test($columns)
 }
 add_filter("manage_{$post_type}_posts_columns", 'reorder_admin_columns_test');
 // END Order column in table postType Test
-// Add privacy in register
 
-function check_privacy_checkbox($errors, $sanitized_user_login, $user_email)
-{
+//Add privacy in register
+
+
+function check_privacy_checkbox($errors, $sanitized_user_login, $user_email) {
     if (empty($_POST['privacy_policy'])) {
         $errors->add('privacy_policy_error', __('È necessario accettare Privacy Policy.', 'abbicuradite'));
     }
-
     return $errors;
 }
 
 add_filter('registration_errors', 'check_privacy_checkbox', 10, 3);
 
-function save_checkout_field($user_id)
-{
+
+function save_checkout_field($user_id) {
     if (isset($_POST['privacy_policy'])) {
         update_user_meta($user_id, 'privacy_policy', sanitize_text_field($_POST['privacy_policy']));
     }
