@@ -18,7 +18,7 @@ function Card($sectorUser)
                 <div class="col col-sm-6 col-lg-4 my-3">
                     <?php get_template_part('template-parts/card-test-User', null, ['term' => $term]); ?>
                 </div>
-            <?php } elseif (!is_user_logged_in() || (is_user_logged_in() && current_user_can('administrator'))) {
+            <?php } elseif (!is_user_logged_in()) {
                 // unique Card for each Area rischio
                 if (in_array($term->term_id, $terms_array)) {
                     continue;
@@ -28,6 +28,14 @@ function Card($sectorUser)
                 <div class="col col-sm-6 col-lg-3 my-3">
                     <?php
                     get_template_part('template-parts/card-test', null, ['term' => $term]); ?> 
+                </div>
+            <?php }
+            elseif (is_user_logged_in() && current_user_can('administrator')) {
+                $terms_array[] = $term->term_id;
+                ?>
+                <div class="col col-sm-6 col-lg-3 my-3">
+                    <?php
+                    get_template_part('template-parts/card-test-User', null, ['term' => $term]); ?>
                 </div>
             <?php }
             }?>
