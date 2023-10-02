@@ -514,6 +514,19 @@ a .card {
 .main-content-register .error-send {
   color: red;
 }
+.main-content-register .privacy {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+}
+.main-content-register .privacy #privacy_policy-error {
+  width: 50% !important;
+}
+.main-content-register .privacy a {
+  padding-left: 15px;
+  text-transform: capitalize;
+}
 .banner-area-reserved {
   background: #006dff;
 }
