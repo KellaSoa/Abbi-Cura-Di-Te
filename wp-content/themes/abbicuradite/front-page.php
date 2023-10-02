@@ -108,14 +108,12 @@ $dataTestUser = $wpdb->get_results("SELECT * FROM wp_valutazione WHERE user_id =
     <a href="<?php echo site_url('/test')?>" class="text-decoration-none w-100">
         <div class="container-fluid mb-5 bloc-content test-tax">
             <div class="container bloc-content">
-                <div class="row align-items-center">
-                    <div class=" py-5 d-flex justify-content-between">
-                        <div class="col-12 col-lg-10">
-                            <h2 class="text-white fw-bold text-uppercase">Mettiti alla prova con i nostri test</h2>
-                        </div>
-                        <div class="col-12 col-lg-2 text-end">
-                            <button class="btn-test-tax btn-scopri mx-auto">Scopri di più</button>
-                        </div>
+                <div class="row align-items-center py-5">
+                    <div class="col-12 col-lg-10">
+                        <h2 class="text-white fw-bold text-uppercase">Mettiti alla prova con i nostri test</h2>
+                    </div> 
+                    <div class="col-12 col-lg-2 text-end">
+                        <button class="btn-test-tax btn-scopri mx-auto">Scopri di più</button>
                     </div>
                 </div>
             </div>

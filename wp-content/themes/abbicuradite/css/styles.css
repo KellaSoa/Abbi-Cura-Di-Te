@@ -832,4 +832,14 @@ a .card {
 .row-video-gallery .card iframe.w-100 {
   border-radius: 10px;
 }
+@media screen and (max-width: 1200px) {
+  .show-compilare-btn {
+    width: auto!important;
+  }
+}
+@media screen and (max-width: 480px) {
+  .btn-single-pg-aree {
+    display: initial !important;
+  }
+}
 /*# sourceMappingURL=styles.css.map */
