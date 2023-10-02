@@ -137,6 +137,12 @@ jQuery(function($) {
             }
         });
         if($(".msgError").is(":visible")){
+            //scrollTo(".msgError");
+            var $container = $('html, body');
+            var $scrollTo = $(".msgError").first().closest('.question');
+            $container.scrollTop($scrollTo.offset().top-200);
+
+
             console.log("The msgError  is visible.");
         } else{
             $('.btn-send-valutazione').attr('disabled',true);

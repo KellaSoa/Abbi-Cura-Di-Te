@@ -2,6 +2,10 @@
 
 
 .container, .container-sm {
+  @media screen and (max-width: @extralarge) {
+    max-width: 96% ;
+  }
+
   @media screen and (max-width: @normal) {
     max-width: 96% ;
   }
@@ -18,12 +22,21 @@
 
     .nav-link
     {
+      color: rgba(255,255,255, 1);
+
       &:hover, &.active, &:focus{
         color: #fff !important;
       }
     }
   }
 }
+.navbar-nav{
+  .nav-link{
+    color: #fff !important;
+    padding: 5px 20px !important;
+  }
+}
+
 
 .menu-primary{
   background-color: @primary-color;
@@ -92,6 +105,10 @@
         }
       }
     }
+  }
+
+  .navbar-toggler{
+    border:0;
   }
 
 
@@ -1028,5 +1045,21 @@ a{
 .btn-single-pg-aree{
   @media screen and  (max-width: @small) {
     display: initial !important;
+  }
+}
+.content #register-form {
+  label.error {
+    color: @rosso;
+    font-weight: bold;
+    width: 100%;
+  }
+
+  #error {
+    display: none;
+    background: @rosso;
+    padding: 20px;
+    color: #fff;
+    margin: 15px 0;
+    border-radius: 11px;
   }
 }
