@@ -2,6 +2,10 @@
 require_once __DIR__.'/includes/finishTest.php';
 require_once __DIR__.'/includes/getCountCorrectWrongTest.php';
 require_once __DIR__.'/includes/getFinalColorValutation.php';
+require_once __DIR__.'/includes/getValutazioneBySector.php';
+require_once __DIR__.'/includes/AllTestBySector.php';
+require_once __DIR__.'/includes/getValutazioneUser.php';
+require_once __DIR__.'/includes/allValutazioneBySector.php';
 
 add_action('wp_enqueue_scripts', 'wpdocs_theme_name_scripts');
 function wpdocs_theme_name_scripts()
@@ -12,7 +16,7 @@ function wpdocs_theme_name_scripts()
     wp_enqueue_style('bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap-modal-carousel.css');
     wp_enqueue_style('style', get_stylesheet_uri());
     wp_enqueue_style('bootstrap-modal-carousel', get_theme_file_uri('/css/bootstrap-modal-carousel.css'));
-    wp_enqueue_style('abbicuradite-style', get_stylesheet_directory_uri().'/css/styles.css', [], '4');
+    wp_enqueue_style('abbicuradite-style', get_stylesheet_directory_uri().'/css/styles.css', [], '6');
 
     wp_enqueue_style('select2-css', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css');
 
@@ -94,14 +98,20 @@ function register_user()
         update_user_meta($new_user_id, 'company_user', $company_user);
         update_user_meta($new_user_id, 'iva_company', $iva_company);
         update_user_meta($new_user_id, 'sector', $user_settore);
+
+        $checkout_option = isset($_POST['privacy_policy']) ? sanitize_text_field($_POST['privacy_policy']) : '';
+        update_user_meta($new_user_id, 'privacy_policy', $checkout_option);
         if ($new_user_id && !is_wp_error($new_user_id)) {
-            // send email to admin
-            // wp_new_user_notification($new_user_id);
+
             // log the user in
             wp_setcookie($user_login, $user_pass, true);
             wp_set_current_user($new_user_id, $user_login);
             do_action('wp_login', $user_login);
-            echo json_encode(['success' => true, 'redirect' => home_url('/area-test')]);
+
+            $response['success'] = true;
+
+            // Return a JSON response
+           echo json_encode(['success' => true, 'redirect' => home_url('/area-test')]);
         } elseif (is_wp_error($new_user_id)) {
             echo json_encode(['success' => false, 'error' => $new_user_id->errors]);
         }
@@ -579,9 +589,107 @@ function add_lost_password_link()
     return '<a href='.wp_lostpassword_url().'>Password dimenticata?</a>';
 }
 
-// taxonomy default value for post_type esercizi and test
-/*function mfields_set_default_object_terms( $post_id, $post ) {
-    if ($post->post_type == 'test' || $post->post_type == 'esercizi')
-        wp_set_object_terms($post_id,'mmc', 'area-rischio',true);
+// change login label
+function gettext_filter_lost_password($translation, $orig, $domain)
+{
+    switch ($orig) {
+        case 'Username or Email Address':
+            $translation = 'Indirizzo Email';
+            break;
+    }
+
+    return $translation;
 }
-add_action( 'save_post', 'mfields_set_default_object_terms', 30, 2 );*/
+add_filter('gettext', 'gettext_filter_lost_password', 10, 3);
+
+// return only parent settore in relation with valutazione
+function filter_relationship_field_query($args, $field, $post_id)
+{
+    // Check if this is the specific field you want to filter
+    if ($field['name'] === 'settoreUtenti') {
+        // Add a filter to the query to only show parent posts
+        $args['post_parent'] = 0;
+    }
+
+    return $args;
+}
+
+add_filter('acf/fields/relationship/query', 'filter_relationship_field_query', 10, 3);
+
+// Add column Sector in table postType Valutazione
+function custom_column_header($columns)
+{
+    $columns['custom_column'] = 'Settore';
+
+    return $columns;
+}
+$post_type = 'valutazione';
+add_filter("manage_{$post_type}_posts_columns", 'custom_column_header');
+
+function custom_column_content($column, $post_id)
+{
+    if ($column == 'custom_column') {
+        getSectorSelectedInEachValutazione($post_id);
+    }
+}
+add_action("manage_{$post_type}_posts_custom_column", 'custom_column_content', 10, 2);
+// end add column Sector in table postType Valutazione
+// Begin Order column in table postType Valutazione
+function reorder_admin_columns($columns)
+{
+    $custom_column = $columns['custom_column'];
+    unset($columns['custom_column']);
+    $columns = array_slice($columns, 0, 2, true) + ['custom_column' => $custom_column] + array_slice($columns, 2, count($columns) - 2, true);
+
+    return $columns;
+}
+add_filter("manage_{$post_type}_posts_columns", 'reorder_admin_columns');
+// END Order column in table postType Valutazione
+// Add column Sector in table postType Test
+function custom_column_header_test($columns)
+{
+    $columns['custom_column'] = 'Settore';
+
+    return $columns;
+}
+$post_type = 'test';
+add_filter("manage_{$post_type}_posts_columns", 'custom_column_header_test');
+
+function custom_column_content_test($column, $post_id)
+{
+    if ($column == 'custom_column') {
+        getSectorSelectedInEachTest($post_id);
+    }
+}
+add_action("manage_{$post_type}_posts_custom_column", 'custom_column_content_test', 10, 2);
+// end add column Sector in table postType Test
+// Begin Order column in table postType Test
+function reorder_admin_columns_test($columns)
+{
+    $custom_column = $columns['custom_column'];
+    unset($columns['custom_column']);
+    $columns = array_slice($columns, 0, 2, true) + ['custom_column' => $custom_column] + array_slice($columns, 2, count($columns) - 2, true);
+
+    return $columns;
+}
+add_filter("manage_{$post_type}_posts_columns", 'reorder_admin_columns_test');
+// END Order column in table postType Test
+//Add privacy in register
+
+
+function check_privacy_checkbox($errors, $sanitized_user_login, $user_email) {
+    if (empty($_POST['privacy_policy'])) {
+        $errors->add('privacy_policy_error', __('È necessario accettare Privacy Policy.', 'abbicuradite'));
+    }
+    return $errors;
+}
+
+add_filter('registration_errors', 'check_privacy_checkbox', 10, 3);
+
+function save_checkout_field($user_id) {
+    if (isset($_POST['privacy_policy'])) {
+        update_user_meta($user_id, 'privacy_policy', sanitize_text_field($_POST['privacy_policy']));
+    }
+}
+
+add_action('user_register', 'save_checkout_field');

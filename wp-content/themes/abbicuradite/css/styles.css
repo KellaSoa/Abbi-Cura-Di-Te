@@ -617,6 +617,12 @@ a .card {
   font-size: 4rem;
   line-height: 4rem;
 }
+@media screen and (max-width: 1200px) {
+  .banner-page .container .row h1 {
+    font-size: 3rem;
+    line-height: 3rem;
+  }
+}
 @media screen and (max-width: 480px) {
   .banner-page .container .row h1 {
     font-size: 2.5rem;
@@ -625,6 +631,12 @@ a .card {
 }
 .banner-page .container .row h3 {
   font-size: 1.5rem;
+}
+@media screen and (max-width: 1200px) {
+  .banner-page .container .row h3 {
+    font-size: 1.3rem;
+    line-height: 1.3rem;
+  }
 }
 @media screen and (max-width: 480px) {
   .banner-page .container .row h3 {
