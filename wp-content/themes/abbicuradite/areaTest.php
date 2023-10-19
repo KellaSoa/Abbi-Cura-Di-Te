@@ -22,7 +22,7 @@ $valueTrueAnswers = getTrueAnswers($domande, $lastTest); ?>
                 <?php get_template_part("template-parts/navbar-area-riservata"); ?>
             </div>
             <div class="col-sm-12 col-md-9 contentPageArea">
-                <?php if(!current_user_can('administrator') && !empty($dataValutazioneUser)):?>
+                <?php if(/*!current_user_can('administrator') &&*/ !empty($dataValutazioneUser)):?>
                 <div class="mb-5 pb-2">
                     <h1 class="title-bloc fs-1 fw-bold"><?php echo get_field("titolo_valutazione_test",get_the_ID()); ?> </h1>
                     <h5 class="pt-2 subtitle text-uppercase">
