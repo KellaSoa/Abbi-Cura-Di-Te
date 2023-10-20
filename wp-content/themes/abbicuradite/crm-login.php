@@ -40,17 +40,17 @@ $check = base64_encode(sha1($token[0].SECRET));
 
 $dati = explode('|', $dati);
 // idDipendente
-//echo 'idDependente: '.$dati[0];
+// echo 'idDependente: '.$dati[0];
 
-//get data user by idDipendente
-//TO DO CHANGE ID TO DYNAMIC
+// get data user by idDipendente
+// TO DO CHANGE ID TO DYNAMIC
 $idDipendente = 10129;
 $dataUser = UserCRM::Instance()->getUserById($idDipendente);
-foreach ($dataUser as $data):
+foreach ($dataUser as $data) {
     var_dump($data);
 
-//http://localhost/Abbi-Cura-Di-Te/crmlogin/?k=MTI0MzJ8MTUyNXxBQUFBQUE3MUEyMUExMjNBfFFVRVNULTAxfDExLzAxLzIwMjMgMTg6MTI6MDA%3D-YzdkMmNhZWY0OTdiODQwYzhlM2I5YTU1MDAwMDMzMzA4NTBkNTQ1YQ%3D%3D
-?>
+    // http://localhost/Abbi-Cura-Di-Te/crmlogin/?k=MTI0MzJ8MTUyNXxBQUFBQUE3MUEyMUExMjNBfFFVRVNULTAxfDExLzAxLzIwMjMgMTg6MTI6MDA%3D-YzdkMmNhZWY0OTdiODQwYzhlM2I5YTU1MDAwMDMzMzA4NTBkNTQ1YQ%3D%3D
+    ?>
 <div class="main-content-register">
     <div class="container d-flex align-items-center justify-content-center">
     <div class="row">
@@ -115,19 +115,20 @@ foreach ($dataUser as $data):
                         <label for="user_last">Sesso </label>
                         <div class="form-check bloc-sex">
                             <?php $sesso = $data->Sesso;
-                            $gender= "";
-                            switch ($sesso){
-                                case "F":
-                                    $gender ="0";
-                                case "M":
-                                    $gender ="1";
-                            }
-                            ?>
+    $gender = '';
+    switch ($sesso) {
+        case 'F':
+            $gender = '0';
+            // no break
+        case 'M':
+            $gender = '1';
+    }
+    ?>
                             <div class="control-group mb-3">
-                                <label for="sex-male"><input type="radio" name="user_sex" id="sex-male" value="1" class="form-radio-input" <?php echo $gender= 1 ? "checked": "" ?>  required>Maschio</label>
+                                <label for="sex-male"><input type="radio" name="user_sex" id="sex-male" value="1" class="form-radio-input" <?php echo $gender = 1 ? 'checked' : ''; ?>  required>Maschio</label>
                             </div>
                             <div class="control-group mb-3">
-                                <label for="sex-female"><input type="radio"  id="sex-female" name="user_sex" value="0" class="form-radio-input" <?php echo  $gender= 0 ? "checked": "" ?>>Femmina</label>
+                                <label for="sex-female"><input type="radio"  id="sex-female" name="user_sex" value="0" class="form-radio-input" <?php echo $gender = 0 ? 'checked' : ''; ?>>Femmina</label>
                             </div>
                         </div>
                     </div>
@@ -138,8 +139,8 @@ foreach ($dataUser as $data):
                     <div class="control-group mb-3">
                         <div>
                             <label for="birthDate">Data di nascita</label>
-                            <?php $date=date_create($data->DataNascita);
-                            $dateBirth= date_format($date,"d/m/y");?>
+                            <?php $date = date_create($data->DataNascita);
+    $dateBirth = date_format($date, 'd/m/y'); ?>
                             <input id="birthDate" class="form-control" type="date" name="user_birth" value ="<?php echo $dateBirth; ?>"/>
                             <span id="birthDateSelected"></span>
                         </div>
@@ -167,11 +168,11 @@ foreach ($dataUser as $data):
                         <select  id = "regione" name="user_region" id="user_region" class="form-control" >
                             <option  value = "" >Seleziona la Regione </option >
                             <?php
-                            foreach ($results as $res) {
-                                $valJson = '{"id":"'.$res->codice.'","value":"'.$res->nome.'"}';
-                                echo "<option  value = '".$valJson."' data-id='".$res->codice."' >".$res->nome.'</option >';
-                            }
-                            ?>
+    foreach ($results as $res) {
+        $valJson = '{"id":"'.$res->codice.'","value":"'.$res->nome.'"}';
+        echo "<option  value = '".$valJson."' data-id='".$res->codice."' >".$res->nome.'</option >';
+    }
+    ?>
                         </select >
                     </div>
                 </div>
@@ -239,23 +240,23 @@ foreach ($dataUser as $data):
                                 <optgroup label="<?php echo get_the_title($parent); ?>" id="<?php echo $parent; ?>">
                                     <?php /* <h2 id="<?php echo $parent; ?>"><a href="<?php echo get_permalink($parent ); ?>"> <?php echo get_the_title($parent); ?></a></h2> */ ?>
                                     <?php $currentPostId = $parent;
-                                    $args = [
-                                        'post_type' => 'settore',
-                                        'post_parent' => $currentPostId,
-                                    ];
-                                    $posts = new WP_Query($args);
-                                    if ($posts->have_posts()) {
-                                        while ($posts->have_posts()) {
-                                            $posts->the_post();
-                                            // create json format
-                                            $myObjSector = new stdClass();
-                                            $myObjSector->idParent = $parent;
-                                            $myObjSector->parent = get_the_title($parent);
-                                            $myObjSector->idChild = get_the_ID();
-                                            $myObjSector->child = get_the_title();
-                                            $myObjSector = json_encode($myObjSector);
-                                            // end json
-                                            ?>
+                                $args = [
+                                    'post_type' => 'settore',
+                                    'post_parent' => $currentPostId,
+                                ];
+                                $posts = new WP_Query($args);
+                                if ($posts->have_posts()) {
+                                    while ($posts->have_posts()) {
+                                        $posts->the_post();
+                                        // create json format
+                                        $myObjSector = new stdClass();
+                                        $myObjSector->idParent = $parent;
+                                        $myObjSector->parent = get_the_title($parent);
+                                        $myObjSector->idChild = get_the_ID();
+                                        $myObjSector->child = get_the_title();
+                                        $myObjSector = json_encode($myObjSector);
+                                        // end json
+                                        ?>
                                             <option value='<?php echo $myObjSector; ?>'><?php echo get_the_title(); ?></option>
                                         <?php }
                                     } ?>
@@ -292,7 +293,7 @@ foreach ($dataUser as $data):
 </div>
 </div>
 
-<?php endforeach;?>
+<?php }?>
 <script>
 jQuery(document).ready(function($) {
     jQuery.validator.addMethod("codiceFiscale", function(value, element)
