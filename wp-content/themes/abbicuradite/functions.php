@@ -6,6 +6,7 @@ require_once __DIR__.'/includes/getValutazioneBySector.php';
 require_once __DIR__.'/includes/AllTestBySector.php';
 require_once __DIR__.'/includes/getValutazioneUser.php';
 require_once __DIR__.'/includes/allValutazioneBySector.php';
+
 add_action('wp_enqueue_scripts', 'wpdocs_theme_name_scripts');
 require_once __DIR__.'/classes/UserCRM.php';
 
@@ -102,6 +103,9 @@ function register_user()
 
         $checkout_option = isset($_POST['privacy_policy']) ? sanitize_text_field($_POST['privacy_policy']) : '';
         update_user_meta($new_user_id, 'privacy_policy', $checkout_option);
+
+        $checkout_option = isset($_POST['privacy_policy']) ? sanitize_text_field($_POST['privacy_policy']) : '';
+        update_user_meta($new_user_id, 'privacy_policy', $checkout_option);
         if ($new_user_id && !is_wp_error($new_user_id)) {
 
             // log the user in
@@ -112,7 +116,6 @@ function register_user()
             $response['success'] = true;
 
             // Return a JSON response
-
            echo json_encode(['success' => true, 'redirect' => home_url('/area-test')]);
         } elseif (is_wp_error($new_user_id)) {
             echo json_encode(['success' => false, 'error' => $new_user_id->errors]);

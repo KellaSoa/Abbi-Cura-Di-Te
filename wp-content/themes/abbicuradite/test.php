@@ -8,7 +8,8 @@ $userId= get_current_user_id();
 $userInfo = get_userdata( $userId);
 $userMeta = get_user_meta( $userId);
 ?>
-<?php get_template_part("template-parts/banner"); ?>
+<?php get_template_part("template-parts/banner-pagina-interna"); ?>
+
 <div class="main-content-test">
     <div class="container w-100 mb-5">
         <h1 class="title-bloc fs-1 fw-bold mt-5 mb-3"><?php echo get_field("titolo_uno"); ?></h1>

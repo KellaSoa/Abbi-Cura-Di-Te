@@ -31,14 +31,19 @@ $video_area = [];
 foreach ($video as $i => $item) {
     if(!empty($item['area_di_rischio_video_youtube']) && $item['area_di_rischio_video_youtube']->term_id == $objPost->term_id) $video_area[] = $item;
 }
+
+$titleArea = strtoupper($term->slug);
+$titolo_descrizione = get_field('titolo_descrizione', $termTaxonomy);
+$sottotitolo_descrizione = get_field('sottotitolo_descrizione', $termTaxonomy);
+$testo_descrizione = get_field('testo_descrizione', $termTaxonomy);
 ?>
 <?php get_template_part('template-parts/etichetta-menu-valutazione', 'etichetta-menu-valutazione', ['user' => $dataTestUser]); ?>
 
-<div class="banner-page banner-inside position-relative pt-5 pb-5" style="background-image: url('<?php echo get_field('banner', $termTaxonomy); ?>');">
+<div class="banner-page banner-small banner-inside position-relative pt-5 pb-5" style="background-image: url('<?php echo get_field('banner', $termTaxonomy); ?>');">
     <div class="bannerShadow position-absolute"></div>
-    <div class="container py-5">
+    <div class="container">
         <div class="row align-items-center">
-            <div class="col-12 col-sm-9">
+            <div class="col-12 col-xl-9">
                 <h2 class="title-banner text-uppercase fw-bold text-white mb-3"><?php echo get_field('titoletto_header', $termTaxonomy); ?></h2>
                 <h1 class="title-banner text-uppercase fw-bold text-white mb-3"><?php echo get_field('titolo_header', $termTaxonomy); ?></h1>
                 <h3 class="title-banner text-white mb-3"><?php echo get_field('sottotitolo_header', $termTaxonomy); ?></h3>
@@ -48,24 +53,30 @@ foreach ($video as $i => $item) {
                     <?php /*<a class="btn-scopri text-white" href="#esercizi-e-consigli" ><?php echo get_field('btn3', $termTaxonomy); ?></a>*/?>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
-<?php
-// get_template_part("template-parts/banner-questionario-valutazione");
-$titleArea = strtoupper($term->slug);
-?>
 <div class="main-content-tax" id="sfoglia-le-slide">
     <div class="container-fluid content">
-        <div class="container pt-5">
+        <div class="container">
             <div class="row align-items-center py-5">
-                <div class="col-sm-6 detail-tax">
-                    <h1 class="title-bloc fs-1 fw-bold"><?php echo get_field('titolo_descrizione', $termTaxonomy); ?></h1>
-                    <h5 class="subtitle text-uppercase"><?php echo get_field('sottotitolo_descrizione', $termTaxonomy); ?></h5>
-                    <div class="pt-1"><?php echo get_field('testo_descrizione', $termTaxonomy); ?></div>
+                <div class="col-sm-6 detail-tax py-3">
+                    <?php if(!empty($titolo_descrizione)):?>
+                    <h1 class="title-bloc fs-1 fw-bold"><?php echo $titolo_descrizione; ?></h1>
+                    <?php endif;?>
+                    <?php if(!empty($sottotitolo_descrizione)):?>
+                    <h5 class="subtitle text-uppercase"><?php echo $sottotitolo_descrizione; ?></h5>
+                    <?php endif;?>
+                    <?php if(!empty($testo_descrizione)):?>
+                    <div class="pt-1 pb-2"><?php echo $testo_descrizione; ?></div>
+                    <?php endif;?>
+                    <div class="mt-4">
+                        <a href="" class="btn-scopri" data-area="testCarousel<?php echo $titleArea; ?>" data-tax="<?php echo $titleArea; ?>" data-bs-toggle="modal" data-bs-target="#docModal<?php echo $titleArea; ?>">
+                            Sfoglia il documento
+                        </a>
+                    </div>
                 </div>
-                <div class="col-sm-6 text-center">
+                <div class="col-sm-6 text-center py-5 py-md-2">
                     <a href="" class="btn-detail-documento ps-3 pe-3 pt-1 pb-1 text-white text-uppercase" data-area="testCarousel<?php echo $titleArea; ?>" data-tax="<?php echo $titleArea; ?>" data-bs-toggle="modal" data-bs-target="#docModal<?php echo $titleArea; ?>">
                         <img src="<?php echo $ebookImg['url']; ?>" alt="">
                     </a>
@@ -146,9 +157,6 @@ $titleArea = strtoupper($term->slug);
             </div>
         </div>
     </div>
-
-
-
     <?php /*
     <div class="container-fluid content pb-5">
         <div class="container pt-5">
