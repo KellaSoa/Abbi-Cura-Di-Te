@@ -6,7 +6,6 @@ require_once __DIR__.'/includes/getValutazioneBySector.php';
 require_once __DIR__.'/includes/AllTestBySector.php';
 require_once __DIR__.'/includes/getValutazioneUser.php';
 require_once __DIR__.'/includes/allValutazioneBySector.php';
-require_once 'wp-load.php';
 add_action('wp_enqueue_scripts', 'wpdocs_theme_name_scripts');
 require_once __DIR__.'/classes/UserCRM.php';
 
