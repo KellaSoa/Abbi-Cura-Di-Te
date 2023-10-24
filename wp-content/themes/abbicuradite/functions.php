@@ -704,13 +704,6 @@ add_action('user_register', 'save_checkout_field');
 // END privacy register
 
 // BEGIN CRON
-function schedule_custom_event()
-{
-    if (!wp_next_scheduled('custom_csv_event')) {
-        wp_schedule_event(strtotime('10:58:00'), 'daily', 'custom_csv_event');
-    }
-}
-
 function custom_csv_event_callback()
 {
     $processor = UserCRM::Instance();
@@ -719,8 +712,23 @@ function custom_csv_event_callback()
 }
 
 add_action('custom_csv_event', 'custom_csv_event_callback');
-// CRON USER CRM TASK
-add_action('init', 'schedule_custom_event');
+
+/*function schedule_custom_event()
+{
+    if (!wp_next_scheduled('custom_csv_event')) {
+        wp_schedule_event(strtotime('10:44:00'), 'daily', 'custom_csv_event');
+    }
+}
+add_action('init', 'schedule_custom_event');*/
+
+function activate() {
+    wp_schedule_event( strtotime('10:44:00'), 'daily', 'custom_csv_event' );
+}
+
+function deactivate() {
+    wp_clear_scheduled_hook('custom_csv_event');
+}
+
 
 function trigger_custom_event()
 {

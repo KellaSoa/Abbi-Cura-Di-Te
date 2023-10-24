@@ -83,7 +83,8 @@ define( 'WP_DEBUG', false );
 
 /* Add any custom values between this line and the "stop editing" line. */
 
-
+define("CRM_FTP_PATH", __DIR__ . '/crm_ftp');
+define('DISABLE_WP_CRON', true);
 
 /* That's all, stop editing! Happy publishing. */
 
