@@ -79,19 +79,26 @@ get_template_part("template-parts/banner-area-riservata");
                                 <div class="control-group mb-3">
                                     <label for="user_region" class="fw-bold">Regione:  </label>
                                     <span>
-                                    <?php echo $userMeta['user_region'][0];?>
+                                    <?php
+                                    $user_region = json_decode($userMeta['user_region'][0]);
+                                    $user_region_value = $user_region->value;
+                                    echo $user_region_value ? $user_region_value : $userMeta['user_region'][0];
+                                    ?>
                                 </span>
                                 </div>
                                 <div class="control-group mb-3">
                                     <label for="user_province" class="fw-bold">Provincia: </label>
                                     <span>
-                                    <?php echo $userMeta['user_province'][0]; ?>
+                                    <?php
+                                    $user_province = json_decode($userMeta['user_province'][0]);
+                                    echo $user_province->value ? $user_province->value : $userMeta['user_province'][0] ; ?>
                                 </span>
                                 </div>
                                 <div class="control-group mb-3">
                                     <label for="user_comune" class="fw-bold">Comune: </label>
                                     <span>
-                                    <?php echo $userMeta['user_comune'][0]; ?>
+                                    <?php $user_comune = json_decode($userMeta['user_comune'][0]);
+                                    echo $user_comune->value ? $user_comune->value : $userMeta['user_comune'][0]; ?>
                                 </span>
                                 </div>
                             </fieldset>
@@ -108,8 +115,8 @@ get_template_part("template-parts/banner-area-riservata");
                                     <span><?php echo $userMeta['iva_company'][0]; ?></span>
                                 </div>
                                 <?php
-                                    $sector= $userMeta['sector'][0];
-                                    $sectorValue= json_decode($sector);?>
+                                $sector= $userMeta['sector'][0];
+                                $sectorValue= json_decode($sector);?>
                                 <div class="control-group mb-3" >
                                     <label for="user_pass_again" class="fw-bold">Settore: </label>
                                     <span><?php echo $sectorValue->parent; ?></span>
