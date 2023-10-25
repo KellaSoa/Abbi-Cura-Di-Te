@@ -8,6 +8,7 @@ require_once __DIR__.'/includes/getValutazioneUser.php';
 require_once __DIR__.'/includes/allValutazioneBySector.php';
 add_action('wp_enqueue_scripts', 'wpdocs_theme_name_scripts');
 require_once __DIR__.'/classes/UserCRM.php';
+require_once __DIR__.'/classes/UserSite.php';
 
 function wpdocs_theme_name_scripts()
 {
@@ -29,6 +30,7 @@ function wpdocs_theme_name_scripts()
     wp_enqueue_script('canvas-js', get_stylesheet_directory_uri().'/js/canvas.js');
     wp_enqueue_script('custom', get_stylesheet_directory_uri().'/js/script.js',
         ['jquery'], false, true);
+
 }
 
 add_action('wp_enqueue_scripts', 'load_dashicons_front_end');
@@ -72,8 +74,8 @@ function register_user()
         $company_user = $_POST['company_user'];
         $iva_company = $_POST['iva_company'];
         $user_settore = $_POST['user_settore'];
-        $user_crm = $_POST['crm_user'] ? $_POST['crm_user'] : 0;
-        // this is require for username check
+        $user_idDipendente = $_POST['idDipendente'] ? $_POST['idDipendente'] : 0;
+        // this is require for username check 
         require_once ABSPATH.WPINC.'/registration.php';
         $new_user_id = wp_insert_user([
             'user_login' => $_POST['user_email'],
@@ -100,7 +102,7 @@ function register_user()
         update_user_meta($new_user_id, 'company_user', $company_user);
         update_user_meta($new_user_id, 'iva_company', $iva_company);
         update_user_meta($new_user_id, 'sector', $user_settore);
-        update_user_meta($new_user_id, 'user_crm', $user_crm);
+        update_user_meta($new_user_id, 'idDipendente', $user_idDipendente);
 
         $checkout_option = isset($_POST['privacy_policy']) ? sanitize_text_field($_POST['privacy_policy']) : '';
         update_user_meta($new_user_id, 'privacy_policy', $checkout_option);

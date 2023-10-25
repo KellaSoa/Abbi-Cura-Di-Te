@@ -120,7 +120,6 @@ class UserCRM
 
     public function getUserById($id){
         $sql = "SELECT * FROM `wp_crm_user` WHERE `idDipendente` =$id";
-        print_r($sql);
         return $this->wpdb->get_results($this->wpdb->prepare($sql));
     }
 }
