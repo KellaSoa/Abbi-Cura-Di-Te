@@ -86,42 +86,44 @@ function register_user()
             'user_registered' => date('Y-m-d H:i:s'),
             'role' => 'user',
         ]);
-        // insert meta_key user
-        update_user_meta($new_user_id, 'first_name', $user_first);
-        update_user_meta($new_user_id, 'last_name', $user_last);
-        update_user_meta($new_user_id, 'user_phone', $user_phone);
-        update_user_meta($new_user_id, 'user_code', $user_code);
-        update_user_meta($new_user_id, 'user_sex', $user_sex);
-        update_user_meta($new_user_id, 'user_birth', $user_birth);
-        update_user_meta($new_user_id, 'user_adress', $user_adress);
-        update_user_meta($new_user_id, 'user_province', $user_province);
-        update_user_meta($new_user_id, 'user_region', $user_region);
-        update_user_meta($new_user_id, 'user_comune', $user_comune);
-        update_user_meta($new_user_id, 'user_cap', $user_cap);
 
-        update_user_meta($new_user_id, 'company_user', $company_user);
-        update_user_meta($new_user_id, 'iva_company', $iva_company);
-        update_user_meta($new_user_id, 'sector', $user_settore);
-        update_user_meta($new_user_id, 'idDipendente', $user_idDipendente);
+        if ( !is_wp_error( $new_user_id ) ) {
+            // insert meta_key user
+            update_user_meta($new_user_id, 'first_name', $user_first);
+            update_user_meta($new_user_id, 'last_name', $user_last);
+            update_user_meta($new_user_id, 'user_phone', $user_phone);
+            update_user_meta($new_user_id, 'user_code', $user_code);
+            update_user_meta($new_user_id, 'user_sex', $user_sex);
+            update_user_meta($new_user_id, 'user_birth', $user_birth);
+            update_user_meta($new_user_id, 'user_adress', $user_adress);
+            update_user_meta($new_user_id, 'user_province', $user_province);
+            update_user_meta($new_user_id, 'user_region', $user_region);
+            update_user_meta($new_user_id, 'user_comune', $user_comune);
+            update_user_meta($new_user_id, 'user_cap', $user_cap);
 
-        $checkout_option = isset($_POST['privacy_policy']) ? sanitize_text_field($_POST['privacy_policy']) : '';
-        update_user_meta($new_user_id, 'privacy_policy', $checkout_option);
+            update_user_meta($new_user_id, 'company_user', $company_user);
+            update_user_meta($new_user_id, 'iva_company', $iva_company);
+            update_user_meta($new_user_id, 'sector', $user_settore);
+            update_user_meta($new_user_id, 'idDipendente', $user_idDipendente);
 
-        $checkout_option = isset($_POST['privacy_policy']) ? sanitize_text_field($_POST['privacy_policy']) : '';
-        update_user_meta($new_user_id, 'privacy_policy', $checkout_option);
-        if ($new_user_id && !is_wp_error($new_user_id)) {
-            // log the user in
-            wp_setcookie($user_login, $user_pass, true);
-            wp_set_current_user($new_user_id, $user_login);
-            do_action('wp_login', $user_login);
+            $checkout_option = isset($_POST['privacy_policy']) ? sanitize_text_field($_POST['privacy_policy']) : '';
+            update_user_meta($new_user_id, 'privacy_policy', $checkout_option);
 
-            $response['success'] = true;
+            $checkout_option = isset($_POST['privacy_policy']) ? sanitize_text_field($_POST['privacy_policy']) : '';
+            update_user_meta($new_user_id, 'privacy_policy', $checkout_option);
 
-            // Return a JSON response
-            echo json_encode(['success' => true, 'redirect' => home_url('/area-test')]);
-        } elseif (is_wp_error($new_user_id)) {
-            echo json_encode(['success' => false, 'error' => $new_user_id->errors]);
+            $user_id = $new_user_id;
+            $user = get_user_by('ID', $user_id);
+            wp_set_current_user($user_id, $user->user_login);
+            wp_set_auth_cookie($user_id);
+            do_action('wp_login', $user->user_login, $user);
+
+            $response = array('success' => true);
+        } else {
+            $response = array('success' => false, 'message' => $new_user_id->get_error_message());
         }
+
+        wp_send_json($response);
     }
     wp_die();
 }
@@ -737,3 +739,16 @@ function trigger_custom_event()
     do_action('custom_csv_event');
 }
 // END CRON
+
+//AUTOLOGIN
+function custom_auto_login() {
+    $user_id = $_POST['user_id'];
+    $user = get_user_by('ID', $user_id);
+    wp_set_current_user($user_id, $user->user_login);
+    wp_set_auth_cookie($user_id);
+    do_action('wp_login', $user->user_login, $user);
+
+    $response = array('success' => true);
+    wp_send_json($response);
+}
+add_action('wp_ajax_custom_auto_login', 'custom_auto_login');

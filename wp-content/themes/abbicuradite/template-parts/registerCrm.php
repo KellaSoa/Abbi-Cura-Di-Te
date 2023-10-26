@@ -19,7 +19,6 @@ if($data):?>
     <h1 class="my-5"><?php the_title(); ?></h1>
     <div class="pageBody my-5" >
         <form action="" id="register-form" method="post">
-
             <fieldset class="border p-2 field">
                 <legend class="float-none w-auto p-2">Dati utente</legend>
                 <div class="row">
@@ -90,9 +89,14 @@ if($data):?>
                         <div class="control-group mb-3">
                             <div>
                                 <label for="birthDate">Data di nascita</label>
-                                <?php $date = date_create($data->DataNascita);
-                                $dateBirth = date_format($date, 'd/m/y'); ?>
+                                <?php $yyyymmddDate = $data->DataNascita;
+                                $yyyy = substr($yyyymmddDate, 0, 4);
+                                $mm = substr($yyyymmddDate, 4, 2);
+                                $dd = substr($yyyymmddDate, 6, 2);
+                                $dateBirth = $yyyy . "-" . $mm . "-" .$dd ;
+                                //$dateBirth = date_format($date, 'd/m/yy'); ?>
                                 <input id="birthDate" class="form-control" type="date" name="user_birth" value ="<?php echo $dateBirth; ?>"/>
+
                                 <span id="birthDateSelected"></span>
                             </div>
                         </div>
@@ -117,7 +121,7 @@ if($data):?>
                             <label for="user_region">Regione  </label>
                             <!--input type="text" name="user_province" id="user_province" class="form-control"-->
                             <select  id = "regione" name="user_region" id="user_region" class="form-control" >
-                                <option  value = "" >Seleziona la Regione </option >
+                                <option  value = "<?php echo $data->Provincia; ?>" ><?php echo $data->Provincia; ?> </option >
                                 <?php
                                 foreach ($results as $res) {
                                     $valJson = '{"id":"'.$res->codice.'","value":"'.$res->nome.'"}';
@@ -240,6 +244,7 @@ if($data):?>
 <?php endif;?>
 <script>
 jQuery(document).ready(function($) {
+
     jQuery.validator.addMethod("codiceFiscale", function(value, element)
             {
                 return validateCF(value);
@@ -346,7 +351,7 @@ jQuery("#register-form").submit(function (event)
                         console.log(response)
                         if(response.success)
                         {
-                            window.location.href = "<?php echo home_url('/area-test'); ?>";
+                            window.location.href = '<?php echo home_url('/area-test'); ?>';
                         }
                         else
                         {
