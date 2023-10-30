@@ -10,12 +10,12 @@ $the_query = new WP_Query($query_array);
 $collect_parents = [];
 
 global $wpdb;
-//get all regione
+// get all regione
 $results = $wpdb->get_results('SELECT * FROM regioni Order By nome');
-//params template
-$data=  $args['data'];
-$idDipendente =$args['idDipendente'];
-if($data):?>
+// params template
+$data = $args['data'];
+$idDipendente = $args['idDipendente'];
+if ($data) { ?>
     <h1 class="my-5"><?php the_title(); ?></h1>
     <div class="pageBody my-5" >
         <form action="" id="register-form" method="post">
@@ -75,10 +75,10 @@ if($data):?>
                             <div class="form-check bloc-sex">
                                 <?php $sesso = $data->Sesso; ?>
                                 <div class="control-group mb-3">
-                                    <label for="sex-male"><input type="radio" name="user_sex" id="sex-male" value="1" required class="form-radio-input" <?php echo $sesso == "M" ? 'checked' : ''; ?>  >Maschio</label>
+                                    <label for="sex-male"><input type="radio" name="user_sex" id="sex-male" value="1" required class="form-radio-input" <?php echo $sesso == 'M' ? 'checked' : ''; ?>  >Maschio</label>
                                 </div>
                                 <div class="control-group mb-3">
-                                    <label for="sex-female"><input type="radio"  id="sex-female" name="user_sex" value="0" class="form-radio-input" <?php echo $sesso == "F" ? 'checked' : ''; ?>>Femmina</label>
+                                    <label for="sex-female"><input type="radio"  id="sex-female" name="user_sex" value="0" class="form-radio-input" <?php echo $sesso == 'F' ? 'checked' : ''; ?>>Femmina</label>
                                 </div>
                             </div>
                         </div>
@@ -90,11 +90,11 @@ if($data):?>
                             <div>
                                 <label for="birthDate">Data di nascita</label>
                                 <?php $yyyymmddDate = $data->DataNascita;
-                                $yyyy = substr($yyyymmddDate, 0, 4);
-                                $mm = substr($yyyymmddDate, 4, 2);
-                                $dd = substr($yyyymmddDate, 6, 2);
-                                $dateBirth = $yyyy . "-" . $mm . "-" .$dd ;
-                                //$dateBirth = date_format($date, 'd/m/yy'); ?>
+    $yyyy = substr($yyyymmddDate, 0, 4);
+    $mm = substr($yyyymmddDate, 4, 2);
+    $dd = substr($yyyymmddDate, 6, 2);
+    $dateBirth = $yyyy.'-'.$mm.'-'.$dd;
+    // $dateBirth = date_format($date, 'd/m/yy');?>
                                 <input id="birthDate" class="form-control" type="date" name="user_birth" value ="<?php echo $dateBirth; ?>"/>
 
                                 <span id="birthDateSelected"></span>
@@ -123,10 +123,10 @@ if($data):?>
                             <select  id = "regione" name="user_region" id="user_region" class="form-control" >
                                 <option  value = "<?php echo $data->Provincia; ?>" ><?php echo $data->Provincia; ?> </option >
                                 <?php
-                                foreach ($results as $res) {
-                                    $valJson = '{"id":"'.$res->codice.'","value":"'.$res->nome.'"}';
-                                    echo "<option  value = '".$valJson."' data-id='".$res->codice."' >".$res->nome.'</option >';
-                                }?>
+    foreach ($results as $res) {
+        $valJson = '{"id":"'.$res->codice.'","value":"'.$res->nome.'"}';
+        echo "<option  value = '".$valJson."' data-id='".$res->codice."' >".$res->nome.'</option >';
+    }?>
                             </select >
                         </div>
                     </div>
@@ -194,23 +194,23 @@ if($data):?>
                                     <optgroup label="<?php echo get_the_title($parent); ?>" id="<?php echo $parent; ?>">
                                         <?php /* <h2 id="<?php echo $parent; ?>"><a href="<?php echo get_permalink($parent ); ?>"> <?php echo get_the_title($parent); ?></a></h2> */ ?>
                                         <?php $currentPostId = $parent;
-                                        $args = [
-                                            'post_type' => 'settore',
-                                            'post_parent' => $currentPostId,
-                                        ];
-                                        $posts = new WP_Query($args);
-                                        if ($posts->have_posts()) {
-                                            while ($posts->have_posts()) {
-                                                $posts->the_post();
-                                                // create json format
-                                                $myObjSector = new stdClass();
-                                                $myObjSector->idParent = $parent;
-                                                $myObjSector->parent = get_the_title($parent);
-                                                $myObjSector->idChild = get_the_ID();
-                                                $myObjSector->child = get_the_title();
-                                                $myObjSector = json_encode($myObjSector);
-                                                // end json
-                                                ?>
+                                    $args = [
+                                        'post_type' => 'settore',
+                                        'post_parent' => $currentPostId,
+                                    ];
+                                    $posts = new WP_Query($args);
+                                    if ($posts->have_posts()) {
+                                        while ($posts->have_posts()) {
+                                            $posts->the_post();
+                                            // create json format
+                                            $myObjSector = new stdClass();
+                                            $myObjSector->idParent = $parent;
+                                            $myObjSector->parent = get_the_title($parent);
+                                            $myObjSector->idChild = get_the_ID();
+                                            $myObjSector->child = get_the_title();
+                                            $myObjSector = json_encode($myObjSector);
+                                            // end json
+                                            ?>
                                                 <option value='<?php echo $myObjSector; ?>'><?php echo get_the_title(); ?></option>
                                             <?php }
                                         } ?>
@@ -232,6 +232,8 @@ if($data):?>
             <div class="control-group text-end">
                 <input type="hidden" name="vicode_csrf" value="<?php echo wp_create_nonce('vicode-csrf'); ?>">
                 <input type="hidden" name="idDipendente" value="<?php echo $idDipendente; ?>">
+                <input type="hidden" name="idAzienda" value="<?php echo $data->IdAzienda; ?>">
+
                 <p class="error-send error"></p>
                 <button type="submit" class="btn btn-primary btn-scopri sendUser mt-3 mx-0">INVIA</button>
                 <!--input class="sendUser" type="submit" value="INVIA"/-->
@@ -241,7 +243,7 @@ if($data):?>
 
         </form>
     </div>
-<?php endif;?>
+<?php }?>
 <script>
 jQuery(document).ready(function($) {
 

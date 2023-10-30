@@ -75,6 +75,7 @@ function register_user()
         $iva_company = $_POST['iva_company'];
         $user_settore = $_POST['user_settore'];
         $user_idDipendente = $_POST['idDipendente'] ? $_POST['idDipendente'] : 0;
+        $user_idAzienda = $_POST['idAzienda'] ? $_POST['idAzienda'] : 0;
         // this is require for username check 
         require_once ABSPATH.WPINC.'/registration.php';
         $new_user_id = wp_insert_user([
@@ -105,6 +106,8 @@ function register_user()
             update_user_meta($new_user_id, 'iva_company', $iva_company);
             update_user_meta($new_user_id, 'sector', $user_settore);
             update_user_meta($new_user_id, 'idDipendente', $user_idDipendente);
+            update_user_meta($new_user_id, 'idAzienda', $user_idAzienda);
+
 
             $checkout_option = isset($_POST['privacy_policy']) ? sanitize_text_field($_POST['privacy_policy']) : '';
             update_user_meta($new_user_id, 'privacy_policy', $checkout_option);

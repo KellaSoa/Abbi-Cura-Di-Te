@@ -33,7 +33,7 @@ $dati = explode('|', $dati);
 // http://localhost/Abbi-Cura-Di-Te/crmlogin/?k=MTI0MzJ8MTUyNXxBQUFBQUE3MUEyMUExMjNBfFFVRVNULTAxfDExLzAxLzIwMjMgMTg6MTI6MDA%3D-YzdkMmNhZWY0OTdiODQwYzhlM2I5YTU1MDAwMDMzMzA4NTBkNTQ1YQ%3D%3D
 
 // TO DO CHANGE ID TO DYNAMIC
-$idDipendente = 10444; //$dati[0];//
+$idDipendente = $dati[0];//
 // get data user by idDipendente
 $dataUser = UserCRM::Instance()->getUserById($idDipendente);
 //get userid  by idDipendente in metaUser if exist in database site
