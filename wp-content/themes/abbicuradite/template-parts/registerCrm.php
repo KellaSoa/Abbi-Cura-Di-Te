@@ -29,23 +29,12 @@ if ($data) { ?>
                         </div>
                     </div>
                     <div class="clear"></div>
-                    <div class="col-sm-6">
-                        <div class="control-group mb-3">
-                            <label for="user_pass">Password *</label>
-                            <input type="password" name="user_pass" id="user_pass" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="control-group mb-3">
-                            <label for="user_pass_again">Conferma password *</label>
-                            <input type="password" name="user_pass_again" id="user_pass_again" class="form-control" required>
-                        </div>
-                    </div>
+
                 </div>
 
             </fieldset>
 
-            <fieldset class="border p-2 field">
+            <fieldset class="border p-2 field d-none">
                 <legend class="float-none w-auto p-2">Dati anagrafici</legend>
                 <input type="hidden" name="action" value="register_user">
                 <div class="row">
@@ -64,8 +53,8 @@ if ($data) { ?>
 
                     <div class="col-sm-6">
                         <div class="control-group mb-3">
-                            <label for="user_first">Telefono *</label>
-                            <input type="text" name="user_phone" id="user_phone" class="form-control" required>
+                            <label for="user_first">Telefono </label>
+                            <input type="text" name="user_phone" id="user_phone" class="form-control" >
                         </div>
                     </div>
 

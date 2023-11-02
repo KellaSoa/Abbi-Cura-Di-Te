@@ -55,31 +55,32 @@ function register_user()
     error_reporting(E_ALL);
     if (!empty($_POST)) {
         // info perso
-        $user_login = $_POST['user_email'];
-        $user_first = $_POST['user_first'];
-        $user_last = $_POST['user_last'];
-        $user_email = $_POST['user_email'];
-        $user_phone = $_POST['user_phone'];
+        $user_login = $_POST['user_email'] ?? null;
+        $user_first = $_POST['user_first'] ;
+        $user_last = $_POST['user_last'] ;
+        $user_email = $_POST['user_email'] ;
+        $user_phone = $_POST['user_phone'] ?? 0;
         $user_code = $_POST['user_tax_id_code'];
-        $user_sex = $_POST['user_sex'];
+        $user_sex = $_POST['user_sex'] ?? null;
         $user_birth = $_POST['user_birth'];
         $user_adress = $_POST['user_adress'];
         $user_region = $_POST['user_region'];
         $user_province = $_POST['user_province'];
         $user_comune = $_POST['user_comune'];
         $user_cap = $_POST['user_cap'];
-        $user_pass = $_POST['user_pass'];
-        $user_pass_again = $_POST['user_pass_again'];
+        $user_pass = $_POST['user_pass'] ?? null;
+        $user_pass_again = $_POST['user_pass_again'] ?? null;
         // info company
         $company_user = $_POST['company_user'];
         $iva_company = $_POST['iva_company'];
         $user_settore = $_POST['user_settore'];
-        $user_idDipendente = $_POST['idDipendente'] ? $_POST['idDipendente'] : 0;
-        $user_idAzienda = $_POST['idAzienda'] ? $_POST['idAzienda'] : 0;
+        $user_idDipendente = $_POST['idDipendente'] ??  0;
+        $user_idAzienda = $_POST['idAzienda'] ??  0;
+        $isUserExternal = $_POST['isUserExternal'] ?? '';
         // this is require for username check 
         require_once ABSPATH.WPINC.'/registration.php';
         $new_user_id = wp_insert_user([
-            'user_login' => $_POST['user_email'],
+            'user_login' => $user_email,
             'user_email' => $user_email,
             'user_first' => $user_first,
             'user_last' => $user_last,
@@ -107,6 +108,7 @@ function register_user()
             update_user_meta($new_user_id, 'sector', $user_settore);
             update_user_meta($new_user_id, 'idDipendente', $user_idDipendente);
             update_user_meta($new_user_id, 'idAzienda', $user_idAzienda);
+            update_user_meta($new_user_id, 'isUserExternal', $isUserExternal);
 
 
             $checkout_option = isset($_POST['privacy_policy']) ? sanitize_text_field($_POST['privacy_policy']) : '';
@@ -755,3 +757,56 @@ function custom_auto_login() {
     wp_send_json($response);
 }
 add_action('wp_ajax_custom_auto_login', 'custom_auto_login');
+
+/*ADD BUTTON EXPORT CSV USER EXTERNAL*/
+// Add custom button to the top of the user list table
+function add_export_csv_button() {
+    ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let exportButton = document.createElement('a');
+            exportButton.classList.add('button');
+            exportButton.classList.add('button-primary');
+            exportButton.href = '<?php echo admin_url('admin.php?page=export_users_csv'); ?>';
+            exportButton.innerText = 'Export CSV USER EXTERNAL';
+
+            let actions = document.querySelector('.alignleft.actions');
+            actions.appendChild(exportButton);
+        });
+    </script>
+    <?php
+}
+
+function export_users_csv() {
+    $allUser = UserSite::Instance()->getAllUserExternal();
+    print_r($allUser);
+    // Generate and output CSV content
+    /*header('Content-Type: text/csv');
+    header('Content-Disposition: attachment; filename="users.csv"');
+
+    $output = fopen('php://output', 'w');*/
+
+    // Output CSV content here
+    // For example:
+    /*fputcsv($output, ['Name', 'Email']);
+    fputcsv($output, ['John Doe', 'john@example.com']);
+    fputcsv($output, ['Jane Smith', 'jane@example.com']);
+
+    fclose($output);
+    exit();*/
+}
+
+function add_export_csv_endpoint() {
+    add_submenu_page(
+        null,
+        'Export Users CSV',
+        'Export Users CSV',
+        'export',
+        'export_users_csv',
+        'export_users_csv'
+    );
+}
+
+add_action('admin_footer-users.php', 'add_export_csv_button');
+add_action('admin_menu', 'add_export_csv_endpoint');
+/*END BUTTON CSV USER*/
