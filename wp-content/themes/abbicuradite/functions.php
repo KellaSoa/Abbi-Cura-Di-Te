@@ -760,42 +760,60 @@ add_action('wp_ajax_custom_auto_login', 'custom_auto_login');
 
 /*ADD BUTTON EXPORT CSV USER EXTERNAL*/
 // Add custom button to the top of the user list table
-function add_export_csv_button() {
-    ?>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            let exportButton = document.createElement('a');
-            exportButton.classList.add('button');
-            exportButton.classList.add('button-primary');
-            exportButton.href = '<?php echo admin_url('admin.php?page=export_users_csv'); ?>';
-            exportButton.innerText = 'Export CSV USER EXTERNAL';
 
-            let actions = document.querySelector('.alignleft.actions');
-            actions.appendChild(exportButton);
-        });
-    </script>
-    <?php
-}
-
+add_action('wp_ajax_export_users_csv', 'export_users_csv');
 function export_users_csv() {
-    $allUser = UserSite::Instance()->getAllUserExternal();
-    print_r($allUser);
-    // Generate and output CSV content
-    /*header('Content-Type: text/csv');
-    header('Content-Disposition: attachment; filename="users.csv"');
 
-    $output = fopen('php://output', 'w');*/
+    $timestamp = date('Y-m-d_H-i');
+    $filename = 'csv-user-esterno_'.$timestamp.'.csv';
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename="'.$filename.'"');
 
-    // Output CSV content here
-    // For example:
-    /*fputcsv($output, ['Name', 'Email']);
-    fputcsv($output, ['John Doe', 'john@example.com']);
-    fputcsv($output, ['Jane Smith', 'jane@example.com']);
+    $csv = dataUserExternal();
+    $fp = fopen('php://output', 'wb');
+    fwrite($fp, "\xEF\xBB\xBF");
 
-    fclose($output);
-    exit();*/
+    foreach ($csv as $line) {
+        fputcsv($fp, $line,',');
+    }
+    fclose($fp);
+    wp_die();
 }
+function dataUserExternal(): array
+{
+    $csv = [];
 
+    $dataUsers = UserSite::Instance()->getAllUserExternal();
+    $rows = [];
+    // TODO: Header row for empty csv
+    foreach ($dataUsers as $user) {
+        $row = [];
+
+        $last_name = get_user_meta($user->ID, 'last_name', true);
+        $first_name = get_user_meta($user->ID, 'first_name', true);
+        $nickname = get_user_meta($user->ID, 'nickname', true);
+        $user_code = get_user_meta($user->ID, 'user_code', true);
+        $sectorData = get_user_meta($user->ID, 'sector', true);
+        $sector = json_decode($sectorData, true);
+
+        $company_user = get_user_meta($user->ID, 'company_user', true);
+        $iva_company = get_user_meta($user->ID, 'iva_company', true);
+        $row['Cognome']         = $last_name;
+        $row['Nome']            = $first_name;
+        $row['Email']           = $nickname;
+        $row['Codice fiscale']  = $user_code;
+        $row['Settore']         = $sector['parent'];
+        $row['Mansione']        = $sector['child'];
+        $row['Azienda']         = $company_user;
+        $row['P.IVA']           = $iva_company;
+
+        $csv[] = $row;
+    }
+    $firstrows = array_keys($csv[0] ?? []);
+    $csv = [$firstrows, ...$csv];
+
+    return $csv;
+}
 function add_export_csv_endpoint() {
     add_submenu_page(
         null,
@@ -806,7 +824,23 @@ function add_export_csv_endpoint() {
         'export_users_csv'
     );
 }
-
-add_action('admin_footer-users.php', 'add_export_csv_button');
 add_action('admin_menu', 'add_export_csv_endpoint');
+
+function add_export_csv_button() {
+    ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let exportButton = document.createElement('a');
+            exportButton.classList.add('button');
+            exportButton.classList.add('button-primary');
+            exportButton.href = '<?php echo admin_url('admin-ajax.php?action=export_users_csv'); ?>';
+            exportButton.innerText = 'Export CSV USER EXTERNAL';
+            exportButton.target = '_blank';
+            let actions = document.querySelector('.alignleft.actions');
+            actions.appendChild(exportButton);
+        });
+    </script>
+    <?php
+}
+add_action('admin_footer-users.php', 'add_export_csv_button');
 /*END BUTTON CSV USER*/

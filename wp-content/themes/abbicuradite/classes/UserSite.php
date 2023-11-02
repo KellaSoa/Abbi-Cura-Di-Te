@@ -81,9 +81,6 @@ class UserSite
     //Get User When IdDipendente null
     public function getAllUserExternal() {
 
-
-
-
         $args = array(
             'meta_query' => array(
                 'relation' => 'OR',
@@ -94,27 +91,22 @@ class UserSite
                 array(
                     'key' => 'idDipendente',
                     'compare' => 'EXISTS',
-                    'value' => 0, // Check if the meta value is empty
+                    'value' => '0', // Check if the meta value is empty
                 ),
             ),
         );
 
         $user_query = new WP_User_Query($args);
 
-        // Query users with the specified meta key and value
-        /*$user_query = new WP_User_Query( array(
-            'meta_key'   => $meta_key,
-            'meta_value' => $meta_value
-        ) );*/
-
         // Get the list of users
         $users = $user_query->get_results();
+
         $datas = array();
-        if ( ! empty( $users ) ) {
+        if (!empty( $users ) ) {
             // Loop through the results
             foreach ( $users as $user ) {
                 // Access user properties
-                $datas = $user;
+                $datas[] = $user;
             }
         } else {
             return null;
