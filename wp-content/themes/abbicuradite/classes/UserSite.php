@@ -115,7 +115,6 @@ class UserSite
     }
 
     public function redirectUserWithToken($userid){
-        $current_user = wp_get_current_user();
         $dataTestUser = $this->wpdb->get_results("SELECT * FROM wp_valutazione WHERE user_id = $userid");
         if (is_user_logged_in() && $dataTestUser) {
             $redirect = site_url('/area-test');

@@ -1,0 +1,21 @@
+﻿IdDipendente,Cognome,Nome,Indirizzo,Localita,Cap,Provincia,Email,CodiceFiscale,Settore,Mansione,Sesso,DataNascita,IdAzienda,RagioneSociale,Azienda,P.IVA
+,,,,,,,admin,,,,F,,,,,
+,,,,,,,,,,,F,,,,,
+,test,Kella,,,,Chieti,kellatest@test.test,RMNDRA96A31G478T,"Strutture all’aria aperta (campeggi)","impiegato amministrativo",F,"impiegato amministrativo",,A+,A+,02082210549
+,,Laura,,,,,staccioli@a-piu.it,,,,F,,,,,
+,staccioli,laura,vsdfs,Perugia,,Perugia,staccioli@reclame.it,stclra90m44e975w,"Strutture all’aria aperta (campeggi)","personal trainer",F,"personal trainer",,a+,a+,12345678912
+,,,,,,,teset3110,,,,F,,,,,
+,,,,,,,teset3110@test.it,,,,F,,,,,
+,test0201,test0201,,,,,test0201@apui.it,RMNDRA96A31G478T,"Strutture all’aria aperta (campeggi)","impiegato contabile",M,"impiegato contabile",,A+,A+,02082210549
+,test0308,test0308,"dsfaf test",Archi,84020,Chieti,test0308@a-piu.it,RMNDRA96A31G478T,"Strutture all’aria aperta (campeggi)","addetto al salvataggio",F,"addetto al salvataggio",,A+,A+,02082210549
+,test030810,test030810,,,,,test030810@a-piu.it,RMNDRA96A31G478T,"Strutture all’aria aperta (campeggi)","impiegato contabile",M,"impiegato contabile",,A+,A+,02082210549
+,test,test,,,,,test030811@a-piu.it,RMNDRA96A31G478T,"Strutture all’aria aperta (campeggi)","impiegato contabile",M,"impiegato contabile",,A+,A+,02082210549
+,test,test,,,,,test030819@a-piu.it,,"Strutture all’aria aperta (campeggi)","impiegato contabile",F,"impiegato contabile",,A+,A+,02082210549
+,test,test,,,,,test030923@a-piu.it,,"Strutture all’aria aperta (campeggi)","impiegato amministrativo",M,"impiegato amministrativo",,A+,A+,02082210549
+0,test0311,test0311,"test indirizzo",Montescudaio,12034,Pisa,test0311@test.it,RMNDRA96A31G478T,"Strutture all’aria aperta (campeggi)","impiegato contabile",M,"impiegato contabile",0,A+,A+,02082210549
+,test,teset,,,,,test0319@a-piu.it,,"Strutture all’aria aperta (campeggi)","impiegato amministrativo",M,"impiegato amministrativo",,A+,A+,02082210549
+,test,test,,,,,test1909@a-piu.it,,"Strutture all’aria aperta (campeggi)","impiegato amministrativo",F,"impiegato amministrativo",,A+,A+,02082210549
+,test28,test28,dsfaf,Deruta,54019,Perugia,test28@a-piu.it,RMNDRA96A31G478T,"Agenzie di viaggio","Addetto alle prenotazioni",M,"Addetto alle prenotazioni",,A+,A+,02082210549
+,,,,,,,,,,,F,,,,,
+0,test31,test31,,,,,test31@test.it,RMNDRA96A31G478T,"Strutture all’aria aperta (campeggi)","impiegato amministrativo",M,"impiegato amministrativo",0,A+,A+,02082210549
+0,test3110,testest31,,,,,testtest3110@test.it,RMNDRA96A31G478T,"Strutture all’aria aperta (campeggi)","impiegato contabile",M,"impiegato contabile",0,A+,A+,02082210549

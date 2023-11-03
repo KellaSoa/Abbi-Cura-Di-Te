@@ -38,14 +38,10 @@ $codeUser = $userWithMeta['user_meta'] ['user_code'][0];
 $user = get_user_by('ID', $userid);
 wp_set_current_user($userid, $user->user_login);
 wp_set_auth_cookie($userid);
-
 /*end  Login user*/
-/*Get valutazione user*/
+/*Get redirect user*/
 $redirection =  UserSite::Instance()->redirectUserWithToken($userid);
-/*end valutazione*/
-/*var_dump($codeUser);
-var_dump($userid);
-die;*/
+/*end redirect*/
 ?>
 <div class="main-content-register">
     <div class="container d-flex align-items-center justify-content-center">

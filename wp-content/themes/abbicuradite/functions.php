@@ -788,22 +788,46 @@ function dataUserExternal(): array
     // TODO: Header row for empty csv
     foreach ($dataUsers as $user) {
         $row = [];
+        $idDipendente   = get_user_meta($user->ID, 'idDipendente', true) ?? 0;
+        $last_name      = get_user_meta($user->ID, 'last_name', true);
+        $first_name     = get_user_meta($user->ID, 'first_name', true);
+        $adress         = get_user_meta($user->ID, 'user_adress', true);
+        $localita       = get_user_meta($user->ID, 'user_comune', true);
+        $user_localita  = json_decode($localita);
+        $localitaValue = $user_localita->value ?? '';
+        $cap            = get_user_meta($user->ID, 'user_cap', true);
+        $provincia      = get_user_meta($user->ID, 'user_province', true);
+        $user_province  = json_decode($provincia);
+        $provinciaValue = $user_province->value ?? '';
 
-        $last_name = get_user_meta($user->ID, 'last_name', true);
-        $first_name = get_user_meta($user->ID, 'first_name', true);
-        $nickname = get_user_meta($user->ID, 'nickname', true);
-        $user_code = get_user_meta($user->ID, 'user_code', true);
-        $sectorData = get_user_meta($user->ID, 'sector', true);
-        $sector = json_decode($sectorData, true);
+        $nickname       = get_user_meta($user->ID, 'nickname', true);
+        $sex            = get_user_meta($user->ID, 'user_sex', true);
+        $sexValue       = $sex == 1 ? 'M' : 'F';
+        $birth          = get_user_meta($user->ID, 'user_birth', true);
 
-        $company_user = get_user_meta($user->ID, 'company_user', true);
-        $iva_company = get_user_meta($user->ID, 'iva_company', true);
+        $user_code      = get_user_meta($user->ID, 'user_code', true);
+        $sectorData     = get_user_meta($user->ID, 'sector', true);
+        $sector         = json_decode($sectorData, true);
+        $idAzienda      = get_user_meta($user->ID, 'idAzienda', true) ?? 0;
+        $company_user   = get_user_meta($user->ID, 'company_user', true);
+        $iva_company    = get_user_meta($user->ID, 'iva_company', true);
+
+        $row['IdDipendente']    = $idDipendente;
         $row['Cognome']         = $last_name;
         $row['Nome']            = $first_name;
+        $row['Indirizzo']       = $adress;
+        $row['Localita']        = $localitaValue;
+        $row['Cap']             = $cap;
+        $row['Provincia']       = $provinciaValue;
         $row['Email']           = $nickname;
-        $row['Codice fiscale']  = $user_code;
+        $row['CodiceFiscale']   = $user_code;
         $row['Settore']         = $sector['parent'];
         $row['Mansione']        = $sector['child'];
+        $row['Sesso']           = $sexValue;
+        $row['DataNascita']     = $birth;
+        $row['IdAzienda']       = $idAzienda;
+        $row['RagioneSociale']  = $company_user;
+        $row['DataNascita']     = $sector['child'];
         $row['Azienda']         = $company_user;
         $row['P.IVA']           = $iva_company;
 
@@ -844,3 +868,39 @@ function add_export_csv_button() {
 }
 add_action('admin_footer-users.php', 'add_export_csv_button');
 /*END BUTTON CSV USER*/
+
+/*CRON IMPORT USERS*/
+register_activation_hook(__FILE__, 'activate_csv_export_cron');
+
+function activate_csv_export_cron() {
+    if (!wp_next_scheduled('csv_export_event')) {
+        wp_schedule_event(time(), 'daily', 'csv_export_event');
+    }
+}
+
+// Deactivate the cron job on plugin deactivation
+register_deactivation_hook(__FILE__, 'deactivate_csv_export_cron');
+
+function deactivate_csv_export_cron() {
+    wp_clear_scheduled_hook('csv_export_event');
+}
+
+// Define the cron event
+add_action('csv_export_event', 'export_csv_users');
+
+// Function to export CSV users
+function export_csv_users() {
+    $csv_file_path= CRM_FTP_PATH.'/users.csv';
+
+    $csv_data = dataUserExternal();
+    $fp = fopen($csv_file_path, 'w');
+    fwrite($fp, "\xEF\xBB\xBF");
+
+    foreach ($csv_data as $line) {
+        fputcsv($fp, $line,',');
+    }
+    fclose($fp);
+    wp_die();
+}
+
+/*END CRON IMPORT USERS*/
