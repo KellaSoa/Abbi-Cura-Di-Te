@@ -128,9 +128,14 @@ get_template_part("template-parts/banner-area-riservata");
                             </fieldset>
                         </div>
                     </div>
-                    <div class="mt-3 mb-3">
-                        <a href="<?php echo site_url('/area-profil-edit');?>" class="btn btn-primary  btn-scopri">Modifica</a>
-                    </div>
+                    <?php $idDipendente = $userMeta['idDipendente'][0];
+                    if(isset($idDipendente) && !empty($idDipendente)): ?>
+                        <p>Utente CRM</p>
+                    <?php else : ?>
+                        <div class="mt-3 mb-3">
+                            <a href="<?php echo site_url('/area-profil-edit');?>" class="btn btn-primary  btn-scopri">Modifica</a>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

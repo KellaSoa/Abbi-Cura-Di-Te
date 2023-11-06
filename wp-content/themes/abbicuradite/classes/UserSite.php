@@ -82,6 +82,8 @@ class UserSite
     public function getAllUserExternal() {
 
         $args = array(
+            'orderby' => 'ID',
+            'order'   => 'ASC',
             'meta_query' => array(
                 'relation' => 'OR',
                 array(
