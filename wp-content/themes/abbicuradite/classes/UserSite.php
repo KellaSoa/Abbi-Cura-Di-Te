@@ -82,7 +82,7 @@ class UserSite
     public function getAllUserExternal() {
 
         $args = array(
-            'orderby' => 'ID',
+            'orderby' => 'ID', // user ID
             'order'   => 'ASC',
             'meta_query' => array(
                 'relation' => 'OR',
@@ -120,7 +120,7 @@ class UserSite
         $dataTestUser = $this->wpdb->get_results("SELECT * FROM wp_valutazione WHERE user_id = $userid");
         if (is_user_logged_in() && $dataTestUser) {
             $redirect = site_url('/area-test');
-        } elseif (is_user_logged_in() && empty($dataTestUser)) {
+        } elseif (is_user_logged_in() && empty($dataTestUser))  {
             $idValutazioneUser = getValutazioneUser();
             $redirect = get_permalink($idValutazioneUser); // Get the permalink
         } else {
