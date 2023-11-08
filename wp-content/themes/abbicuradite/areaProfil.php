@@ -130,7 +130,7 @@ get_template_part("template-parts/banner-area-riservata");
                     </div>
                     <?php $idDipendente = $userMeta['idDipendente'][0];
                     if(isset($idDipendente) && !empty($idDipendente)): ?>
-                        <p>Utente CRM</p>
+                        <p>I dati visibili sono recuperati dall' anagrafica dell'ente bilaterale</p>
                     <?php else : ?>
                         <div class="mt-3 mb-3">
                             <a href="<?php echo site_url('/area-profil-edit');?>" class="btn btn-primary  btn-scopri">Modifica</a>

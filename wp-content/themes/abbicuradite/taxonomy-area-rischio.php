@@ -135,25 +135,29 @@ $testo_descrizione = get_field('testo_descrizione', $termTaxonomy);
                 <?php
                 $valueGet = getTestUserBySector();
                 $sectorCurrentUser = $valueGet['sectorCurrentUser'];
-                while (have_posts()) {
-                    the_post();
-                    if ($post->post_type === 'esercizi') {
-                        continue;
-                    }
-                    $sectors = get_field('settore');
-                    $allTest = AllTestBySector($sectors, $sectorCurrentUser, $valueGet);
-                    $args = ['term' => $term];
-                    if ($allTest['has_sector'] && is_user_logged_in()) { ?>
-                    <div class="col col-sm-6 col-lg-4 my-3">
-                        <?php get_template_part('template-parts/card-test-User', '', $args); ?>
-                    </div>
-                    <?php } elseif (!is_user_logged_in() || (is_user_logged_in() && current_user_can('administrator'))) { ?>
-                    <div class="col col-sm-6 col-lg-4 my-3">
-                        <?php get_template_part('template-parts/card-test', '', $args);
-                        break; ?>
-                    </div>
-                    <?php } ?>
-                <?php } ?>
+                if(have_posts()):
+                    while (have_posts()) {
+                        the_post();
+                        if ($post->post_type === 'esercizi') {
+                            continue;
+                        }
+                        $sectors = get_field('settore');
+                        $allTest = AllTestBySector($sectors, $sectorCurrentUser, $valueGet);
+                        $args = ['term' => $term];
+                        if ($allTest['has_sector'] && is_user_logged_in()) { ?>
+                        <div class="col col-sm-6 col-lg-4 my-3">
+                            <?php get_template_part('template-parts/card-test-User', '', $args); ?>
+                        </div>
+                        <?php } elseif (!is_user_logged_in() || (is_user_logged_in() && current_user_can('administrator'))) { ?>
+                        <div class="col col-sm-6 col-lg-4 my-3">
+                            <?php get_template_part('template-parts/card-test', '', $args);
+                            break; ?>
+                        </div>
+                        <?php } ?>
+                    <?php }
+                else:
+                    echo "Non è disponibile alcun test";
+                endif;?>
             </div>
         </div>
     </div>

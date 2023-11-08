@@ -7,6 +7,8 @@ if ( $page ) {
 
     // Output the page content
     echo apply_filters( 'the_content', $page->post_content );
+    echo '<br>';
+    //echo '<a class="btn-test-tax btn-border-radius-bleu mx-auto" href="'.site_url('/').'">entra nel sito</a>';
 } else {
     // Page not found
     echo '<p>Page not found.</p>';
