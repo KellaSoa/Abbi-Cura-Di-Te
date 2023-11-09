@@ -116,10 +116,11 @@ class UserSite
         return $datas;
     }
 
-    public function redirectUserWithToken($userid){
+    public function redirectUserWithToken($userid,$current_url){
+
         $dataTestUser = $this->wpdb->get_results("SELECT * FROM wp_valutazione WHERE user_id = $userid");
         if (is_user_logged_in() && $dataTestUser) {
-            $redirect = site_url('/area-test');
+            $redirect = $current_url;//site_url('/area-test');
         } elseif (is_user_logged_in() && empty($dataTestUser))  {
             $idValutazioneUser = getValutazioneUser();
             $redirect = get_permalink($idValutazioneUser); // Get the permalink

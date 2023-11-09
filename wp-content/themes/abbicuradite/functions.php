@@ -119,6 +119,7 @@ function register_user()
 
             $user_id = $new_user_id;
             $user = get_user_by('ID', $user_id);
+            wp_clear_auth_cookie();
             wp_set_current_user($user_id, $user->user_login);
             wp_set_auth_cookie($user_id);
             do_action('wp_login', $user->user_login, $user);
@@ -337,12 +338,17 @@ function add_test_valutazione_user()
 function my_login_redirect($redirect_to, $request, $user)
 {
     global $wpdb;
+    $link_originale = $_GET['k'];
     $dataTestUser = $wpdb->get_results("SELECT * FROM wp_valutazione WHERE user_id = $user->ID");
     if (isset($user->roles) && is_array($user->roles)) {
         // check for admins
         if (in_array('administrator', $user->roles) || $dataTestUser) {
             $redirect_to = home_url('/area-test');
-        } else {
+        } elseif($link_originale) {
+            $current_url = home_url(add_query_arg(array(), $wpdb->request));
+            $redirect_to = $current_url;
+        }
+        else{
             $redirect_to = home_url('/valutazione/questionario');
         }
     }

@@ -1,15 +1,7 @@
 <?php
-
-/* Template Name: CRM Login */
 get_header();
-
 $link_originale = $_GET['k'];
-if (!isset($link_originale)) {
-    get_template_part("template-parts/page403");
-}
-
 $array = explode("-", urldecode($link_originale));
-
 $string_utente = base64_decode($array[0]);
 $dati = explode('|', $string_utente);
 $dati_utente = base64_encode($string_utente);
@@ -19,7 +11,7 @@ $KeySalt = $dati_utente.$secret_key;
 
 $hash = sha1($KeySalt);
 $hash = substr($hash, 0, 6);
-$idDipendente = $dati[0];//
+$idDipendente = $dati[0 ];//
 $idAzienda = $dati[1];
 
 // get data user by idDipendente
@@ -35,12 +27,16 @@ $userWithMeta =  UserSite::Instance()->getllMetaUserByCodeUser($taxIdCodeUser);
 $userid = $userWithMeta['user_data'];
 $codeUser = $userWithMeta['user_meta'] ['user_code'][0];
 /*Login user*/
+wp_clear_auth_cookie();
 $user = get_user_by('ID', $userid);
 wp_set_current_user($userid, $user->user_login);
 wp_set_auth_cookie($userid);
 /*end  Login user*/
 /*Get redirect user*/
-$redirection =  UserSite::Instance()->redirectUserWithToken($userid);
+global $wp;
+$current_url = home_url(add_query_arg(array(), $wp->request));
+if($userid)
+    $redirection =  UserSite::Instance()->redirectUserWithToken($userid,$current_url) ?? '';
 /*end redirect*/
 ?>
 <div class="main-content-register">
@@ -80,5 +76,4 @@ $redirection =  UserSite::Instance()->redirectUserWithToken($userid);
         </div>
     </div>
 </div>
-
-   <?php get_footer();
+<?php get_footer();
