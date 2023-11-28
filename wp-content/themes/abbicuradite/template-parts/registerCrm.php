@@ -16,10 +16,18 @@ $results = $wpdb->get_results('SELECT * FROM regioni Order By nome');
 $data = $args['data'];
 $userEmail = $data->Email ?? '';
 $idDipendente = $args['idDipendente'];
-if ($data) { ?>
-    <h1 class="my-5">Bievenuti su Abbi cura di te</h1>
-    <p>Questo sito aiutarla ha fare un test per vedere il tuo rischio nel tuo lavoro</p>
-    <h2>Inserire vostra dati</h2>
+
+if ($data) {
+    $yyyymmddDate = $data->DataNascita;
+    $yyyy = substr($yyyymmddDate, 0, 4);
+    $mm = substr($yyyymmddDate, 4, 2);
+    $dd = substr($yyyymmddDate, 6, 2);
+    $dateBirth = $yyyy.'-'.$mm.'-'.$dd;
+    $dateBirth_format = $dd.'-'.$mm.'-'.$yyyy;
+    ?>
+    <h1 class="title-bloc mt-5 mb-3 fw-bold">Benvenuto su Abbi cura di te</h1>
+    <h5 class="subtitle text-uppercase mb-5">La piattaforma per prevenire i rischi lavorativi collegati a posture e movimenti non corretti, nel settore del turismo.</h5>
+    <h4 class="mb-5">Inserisci i tuoi dati</h4>
     <div class="pageBody my-5" >
         <form action="" id="register-form" method="post">
             <fieldset class="border p-2 field">
@@ -81,39 +89,33 @@ if ($data) { ?>
                         </div>
                     </div>
                     <div class="clear"></div>
-
                 </div>
 
             </fieldset>
 
-            <fieldset class="border p-2 field d-none">
+            <fieldset class="border p-2 field">
                 <legend class="float-none w-auto p-2">Dati anagrafici</legend>
                 <input type="hidden" name="action" value="register_user">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-6  col-md-4">
                         <div class="control-group mb-3">
-                            <label for="user_first">Nome *</label>
-                            <input type="text" name="user_first" id="user_first" class="form-control" required value="<?php echo $data->Nome; ?>">
+                            <label for="user_first">Nome:</label> <?php echo $data->Nome; ?>
+                            <input type="hidden" name="user_first" id="user_first" class="form-control" required value="<?php echo $data->Nome; ?>">
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6  col-md-4">
                         <div class="control-group mb-3">
-                            <label for="user_last">Cognome *</label>
-                            <input type="text" name="user_last" id="user_last" class="form-control" required value="<?php echo $data->Cognome; ?>">
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="control-group mb-3">
-                            <label for="user_first">Telefono </label>
-                            <input type="text" name="user_phone" id="user_phone" class="form-control" >
+                            <label for="user_last">Cognome:</label> <?php echo $data->Cognome; ?>
+                            <input type="hidden" name="user_last" id="user_last" class="form-control" required value="<?php echo $data->Cognome; ?>">
                         </div>
                     </div>
 
-                    <div class="col-sm-6">
+                    <input type="hidden" name="user_phone" id="user_phone" class="form-control" >
+
+                    <div class="col-sm-6 col-md-4">
                         <div class="control-group mb-3">
-                            <label for="user_last">Sesso </label>
-                            <div class="form-check bloc-sex">
+                            <label for="user_last">Sesso:</label> <?php echo $data->Sesso;?>
+                            <div class="form-check bloc-sex d-none">
                                 <?php $sesso = $data->Sesso; ?>
                                 <div class="control-group mb-3">
                                     <label for="sex-male"><input type="radio" name="user_sex" id="sex-male" value="1" required class="form-radio-input" <?php echo $sesso == 'M' ? 'checked' : ''; ?>  >Maschio</label>
@@ -125,95 +127,52 @@ if ($data) { ?>
                         </div>
                     </div>
 
-
-                    <div class="col-sm-6">
+                    <div class="col-sm-6  col-md-4">
                         <div class="control-group mb-3">
                             <div>
-                                <label for="birthDate">Data di nascita</label>
-                                <?php $yyyymmddDate = $data->DataNascita;
-    $yyyy = substr($yyyymmddDate, 0, 4);
-    $mm = substr($yyyymmddDate, 4, 2);
-    $dd = substr($yyyymmddDate, 6, 2);
-    $dateBirth = $yyyy.'-'.$mm.'-'.$dd;
-    // $dateBirth = date_format($date, 'd/m/yy');?>
-                                <input id="birthDate" class="form-control" type="date" name="user_birth" value ="<?php echo $dateBirth; ?>"/>
-
+                                <label for="birthDate">Data di nascita:</label> <?php echo $dateBirth_format; ?>
+                                <input id="birthDate" class="form-control" type="hidden" name="user_birth" value ="<?php echo $dateBirth; ?>"/>
                                 <span id="birthDateSelected"></span>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="control-group mb-3">
-                            <label for="user_last">Codice Fiscale * </label>
-                            <input type="text" name="user_tax_id_code" id="user_tax_id_code" maxlength="16" class="form-control" value ="<?php echo $data->CodiceFiscale; ?>">
+                            <label for="user_last">Codice Fiscale:</label> <?php echo $data->CodiceFiscale; ?>
+                            <input type="hidden" name="user_tax_id_code" id="user_tax_id_code" maxlength="16" class="form-control" value ="<?php echo $data->CodiceFiscale; ?>">
                         </div>
                     </div>
                     <div class="clear"></div>
 
                     <div class="col-sm-12">
                         <div class="control-group mb-3">
-                            <label for="user_adress">Indirizzo </label>
-                            <input type="text" name="user_adress" id="user_adress" class="form-control" value="<?php echo $data->Indirizzo; ?>">
+                            <label for="user_adress">Indirizzo:</label> <?php echo $data->Indirizzo; ?>, <?php echo $data->Cap; ?> - <?php echo $data->Localita; ?> (<?php echo $data->Provincia; ?>) <?php echo $data->Regione; ?>
+                            <input type="hidden" name="user_adress" id="user_adress" class="form-control" value="<?php echo $data->Indirizzo; ?>">
+                            <input type="hidden" name="user_region" id="user_region" class="form-control" value="<?php echo $data->Regione; ?>">
+                            <input type="hidden" name="user_province" id="user_province" class="form-control" value="<?php echo $data->Provincia; ?>">
+                            <input type="hidden" name="user_comune" id="user_comune" class="form-control" value="<?php echo $data->Localita; ?>">
+                            <input type="hidden" name="user_cap" id="user_cap"  maxlength="5" data-id="" class="form-control" value="<?php echo $data->Cap; ?>">
                         </div>
                     </div>
 
-                    <div class="col-sm-6">
-                        <div class="control-group mb-3">
-                            <label for="user_region">Regione  </label>
-                            <!--input type="text" name="user_province" id="user_province" class="form-control"-->
-                            <select  id = "regione" name="user_region" id="user_region" class="form-control" >
-                                <option  value = "<?php echo $data->Provincia; ?>" ><?php echo $data->Provincia; ?> </option >
-                                <?php
-    foreach ($results as $res) {
-        $valJson = '{"id":"'.$res->codice.'","value":"'.$res->nome.'"}';
-        echo "<option  value = '".$valJson."' data-id='".$res->codice."' >".$res->nome.'</option >';
-    }?>
-                            </select >
-                        </div>
-                    </div>
-
-
-                    <div class="col-sm-6">
-                        <div class="control-group mb-3">
-                            <label for="user_province">Provincia</label>
-                            <select  id = "provincia" name="user_province" id="user_province" class="form-control" >
-                                <option value="<?php echo $data->Provincia; ?>"><?php echo $data->Provincia; ?></option >
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="control-group mb-3">
-                            <label for="user_comune">Comune </label>
-                            <select  id = "comune" name="user_comune" id="user_comune" class="form-control" >
-                                <option value="<?php echo $data->Localita; ?>"><?php echo $data->Localita; ?></option >
-                            </select >
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="control-group mb-3">
-                            <label for="user_cap">CAP</label>
-                            <input type="numeric" name="user_cap" id="user_cap"  maxlength="5" data-id="" class="form-control" value="<?php echo $data->Cap; ?>">
-                        </div>
-                    </div>
 
                 </div>
             </fieldset>
 
-            <fieldset class="border p-2 field d-none">
+            <fieldset class="border p-2 field">
                 <legend class="float-none w-auto p-2">Dati aziendali *</legend>
                 <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-12">
                         <div class="control-group mb-3">
-                            <label for="company_user">Ragione sociale Azienda *</label>
-                            <input type="text" name="company_user" id="company_user" class="form-control" readonly required value="<?php echo $data->RagioneSociale; ?>">
+                            <label for="company_user">Ragione sociale Azienda:</label> <?php echo $data->RagioneSociale; ?>
+                            <input type="hidden" name="company_user" id="company_user" class="form-control" readonly required value="<?php echo $data->RagioneSociale; ?>">
                         </div>
                     </div>
 
-                    <div class="col-sm-4">
+                    <div class="col-sm-12">
                         <div class="control-group mb-3">
-                            <label for="iva_company">P.IVA *</label>
-                            <input type="text" name="iva_company" id="iva_company" class="form-control" maxlength="16" readonly required value="<?php echo $data->PartitaIva; ?>">
+                            <label for="iva_company">P.IVA:</label> <?php echo $data->PartitaIva; ?>
+                            <input type="hidden" name="iva_company" id="iva_company" class="form-control" maxlength="16" readonly required value="<?php echo $data->PartitaIva; ?>">
                         </div>
                     </div>
 
@@ -222,10 +181,13 @@ if ($data) { ?>
 
             </fieldset>
             <div class="row">
-                <label for="privacy_policy" class="privacy">
-                    <input type="checkbox" id="privacy_policy" name="privacy_policy" required />
-                    <a href="<?php echo esc_url(get_permalink(3)); ?>"> Accetto Privacy Policy</a>.
-                </label>
+                <div class="col-sm-12">
+                    <label for="privacy_policy" class="privacy">
+                        <input type="checkbox" id="privacy_policy" name="privacy_policy" required />
+                        <span>Ho letto e accosento al trattamento dei dati personali indicato nella <a href="<?php echo esc_url(get_permalink(3)); ?>" target="_blank">Privacy Policy</a>.</span>
+                    </label>
+                </div>
+
             </div>
             <div class="control-group text-end">
                 <input type="hidden" name="vicode_csrf" value="<?php echo wp_create_nonce('vicode-csrf'); ?>">
@@ -324,6 +286,8 @@ jQuery(document).ready(function($) {
     });
 jQuery("#register-form").submit(function (event)
     {
+        event.preventDefault();
+
         jQuery('#register-form').attr('disabled',true);
 
         if (jQuery(this).find('[required]').filter(function() {
@@ -373,7 +337,7 @@ jQuery("#register-form").submit(function (event)
                             console.log('shown');
                         }
                         else{
-                            jQuery('.error-send').text('Spiacente, quello utenti esiste già!');
+                            jQuery('.error-send').text('Spiacente, utente già esistente');
                         }
 
                         jQuery('#register-form').removeAttr('disabled');

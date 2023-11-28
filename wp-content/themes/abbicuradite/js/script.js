@@ -1,10 +1,39 @@
 jQuery(function($) {
+
+    quiz_valutazione = jQuery('.quiz .valutazione');
+    quiz_valutazione.find('.wpcf7-list-item-label').on("click", function(){
+        col_parent = jQuery(this).closest(".col-question");
+
+        if(!col_parent.is(':last-child')){
+            next_col = col_parent.next();
+            next_col.fadeTo(300, 1);
+            $('html, body').scrollTop(next_col.offset().top-200);
+        }
+        fieldset = col_parent.closest("fieldset");
+        if(fieldset.hasClass("field-anagrafica")){
+            if(col_parent.is(':last-child')){
+                console.log('last field-anagrafica');
+                jQuery(".section-title-valutazione").fadeIn(300);
+                jQuery(".section-form-valutazione").fadeIn(300);
+                $('html, body').scrollTop(jQuery(".section-title-valutazione").offset().top-200);
+            }
+        }
+        else if(fieldset.hasClass("field-valutazione")){
+            if(col_parent.is(':last-child')){
+                console.log('last field-valutazione');
+                section_button = jQuery(".section-button");
+                section_button.fadeIn(300);
+                $('html, body').scrollTop(section_button.offset().top-200);
+            }
+        }
+    });
+
     //show orange popup on the right
     $(window).scroll(function() {
         if ($(this).scrollTop() > 813){
-            $( ".show-compilare-btn" ).css( "display", "block" );
+            $( ".show-compilare-btn" ).addClass("visible");
         }else{
-            $( ".show-compilare-btn" ).css( "display", "none" );
+            $( ".show-compilare-btn" ).removeClass("visible");
         }
     });
     //dropdown hover menu Area rischio
@@ -198,21 +227,21 @@ jQuery(function($) {
             '</button>');
     });
 
+
     //modal studio area studio
     const myModal = new bootstrap.Modal(document.getElementById('myModal'), {});
     const trigg = document.querySelector('#modal-trigger');
-
     function showModal(el){
         el.show();
     }
 
-// Event 1:  show after 1 second:
+    // Event 1:  show after 1 second:
     setTimeout(function() {
         showModal(myModal);
         trigg.style.display = 'inline-block';
     }, 1000)
 
-// Event 2: show on click:
+    // Event 2: show on click:
     trigg.addEventListener('click', function(){
         showModal(myModal);
     });

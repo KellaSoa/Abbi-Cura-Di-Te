@@ -1,5 +1,6 @@
 wp-config.php
 .htaccess
+.idea
 wp-admin/images/
 wp-content/themes/abbicuradite/images/ 
 .idea/

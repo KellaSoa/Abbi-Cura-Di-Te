@@ -413,6 +413,10 @@ a{
       //background-color: ;
     }
 
+    .col-question:not(:first-child){
+      display: none;
+    }
+
     .question{
       margin-bottom: 10px;
       .title{
@@ -436,7 +440,20 @@ a{
 
         .wpcf7-list-item{
           margin: 5px 0;
+          .wpcf7-list-item-label{
+            transition: all ease-out 0.3s;
+          }
+
+          &:hover{
+            .wpcf7-list-item-label{
+              background: @primary-color;
+              color: #fff;
+              transition: all ease-in-out 0.3s;
+            }
+
+          }
         }
+
       }
 
       input[type=radio] + .wpcf7-list-item-label {
@@ -635,17 +652,8 @@ a{
   }
 
   .privacy{
-    display: flex;
-    width: 50%;
-    justify-content: center;
-    align-items: center;
-
-    #privacy_policy-error{
-      width: 50% !important;
-    }
-    a{
-      padding-left: 15px;
-      text-transform: capitalize;
+    label{
+      text-transform: none;
     }
   }
 }
@@ -1044,9 +1052,23 @@ a{
 }
 
 .show-compilare-btn{
+  top: 92px;
+  right: 0;
+  z-index: 10;
+  text-decoration: none;
+  box-shadow: 0 0 10px #666;
+  transform: translateX(100%);
+  transition: all ease-out 0.3s;
+
   @media screen and  (max-width: @large){
     width: auto!important;
   }
+
+  &.visible{
+    transform: translateX(0%);
+    transition: all ease-in-out 0.3s;
+  }
+
 }
 .btn-single-pg-aree{
   @media screen and  (max-width: @small) {
@@ -1069,3 +1091,4 @@ a{
     border-radius: 11px;
   }
 }
+

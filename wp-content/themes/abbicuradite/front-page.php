@@ -1,5 +1,5 @@
 <?php get_header();
-require_once __DIR__.'/includes/esercizi.php';
+require_once __DIR__ .'/includes/esercizi.php';
 global $wpdb;
 $current_user = wp_get_current_user();
 $dataTestUser = $wpdb->get_results("SELECT * FROM wp_valutazione WHERE user_id = $current_user->ID");
@@ -17,32 +17,59 @@ if (is_user_logged_in() && $dataTestUser) {
 ?>
 <?php get_template_part('template-parts/etichetta-menu-valutazione', 'etichetta-menu-valutazione', ['user' => $dataTestUser]); ?>
 
-<?php get_template_part('template-parts/banner'); ?>
+<?php get_template_part("template-parts/banner");?>
+<?php
+/*$link_originale = "MTI0MzJ8MTUyNQ%3d%3d-870ec2";
+echo $link_originale."<br><br>";
+
+$array = explode("-", urldecode($link_originale));
+print_r($array);
+echo "<br><br>";
+$stringa_utente = base64_decode($array[0]);
+echo $dati_utente.'<br>';
+
+$dati_utente = base64_encode($stringa_utente);
+$secret_key = "EBT-UMB-PG";
+
+$KeySalt = $dati_utente.$secret_key;
+
+echo $KeySalt.'<br>';
+
+$hash = sha1($KeySalt);
+echo $hash.'<br>';
+$hash = substr($hash, 0, 6);
+if($hash == $array[1]) echo 'CORRETTO';
+*/
+//echo "k=".urlencode($stringa_utente).'-'.urlencode($hash);
+//echo sha1("MTI0MzJ8MTUyNXxBQUFBQUE3MUEyMUExMjNBfFFVRVNULTAxfDExLzAxLzIwMjMgMTg6MTI6MDA=EBT-UMB-PG");
+//echo '<br>'.base64_encode($hash);
+//echo dechex(135);
+?>
 <div class="main-content-home">
     <div class="container-fluid bloc-content progetto">
         <div class="container mb-5 pt-5 bloc-content">
             <div class="row mt-5">
                 <div class="col-sm-6" id="nostro-progetto">
-                    <h1 class="title-bloc fs-1 fw-bold"><?php echo get_field('titolo_uno'); ?></h1>
-                    <h5 class="pt-2 subtitle text-uppercase"><?php echo get_field('sottotitolo_uno'); ?></h5>
-                    <p class="pt-3"><?php echo get_field('paragrafo_uno'); ?></p>
+                    <h1 class="title-bloc fs-1 fw-bold"><?php echo get_field("titolo_uno"); ?></h1>
+                    <h5 class="pt-2 subtitle text-uppercase"><?php echo get_field("sottotitolo_uno"); ?></h5>
+                    <p class="pt-3"><?php echo get_field("paragrafo_uno"); ?></p>
                     <!--a class="btn-scopri text-white" href="#tutti-i-rischi">Scopri tutti i rischi</a-->
                 </div>
                 <div class="col-sm-6">
-                    <iframe class="w-100" height="315" src="<?php echo get_field('video_progetto'); ?>" title="<?php echo get_field('titolo_uno'); ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe class="w-100" height="315" src="<?php echo get_field("video_progetto");?>" title="<?php echo get_field("titolo_uno");; ?>" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
             </div>
             <div class="row row-step mt-5">
-                <h1 class="title-bloc fs-1 fw-bold mb-5"><?php echo get_field('titolo_due'); ?></h1>
+                <h1 class="title-bloc fs-1 fw-bold mb-5"><?php echo get_field("titolo_due"); ?></h1>
                 <div class="col col-12 col-sm-6 col-md-4 col-lg-4">
                     <a class="title-step text-uppercase fw-bold" href="<?php echo $link_questionario; ?>">
                         <img class="step" src="<?php echo get_theme_file_uri('/images/step1.png'); ?>" alt="step1">
                     </a>
                     <div class="text">
                         <a class="title-step text-uppercase fw-bold" href="<?php echo $link_questionario; ?>">
-                            <span class=""><?php echo get_field('passi_uno'); ?></span>
+                            <span class=""><?php echo get_field("passi_uno"); ?></span>
                         </a>
-                        <p class="mt-2"><?php echo get_field('descrizione_uno'); ?></p>
+                        <p class="mt-2"><?php echo get_field("descrizione_uno"); ?></p>
                     </div>
                 </div>
 
@@ -52,9 +79,9 @@ if (is_user_logged_in() && $dataTestUser) {
                     </a>
                     <div class="text">
                         <a class="title-step text-uppercase fw-bold" href="#tutti-i-rischi">
-                            <span class="ps-2"><?php echo get_field('passi_due'); ?></span>
+                            <span class="ps-2"><?php echo get_field("passi_due"); ?></span>
                         </a>
-                        <p class="mt-2"><?php echo get_field('descrizione_due'); ?></p>
+                        <p class="mt-2"><?php echo get_field("descrizione_due"); ?></p>
                     </div>
                 </div>
 
@@ -96,9 +123,9 @@ if (is_user_logged_in() && $dataTestUser) {
                         'orderby' => 'name',
                         'order' => 'ASC',
                     ];
-$cats = get_categories($args);
-foreach ($cats as $cat) {
-    $titleArea = strtoupper($cat->slug); ?>
+                    $cats = get_categories($args);
+                    foreach ($cats as $cat) {
+                        $titleArea = strtoupper($cat->slug); ?>
                        <div class="col col-md-6 col-lg-3 my-3">
                            <a href="<?php echo get_category_link($cat->term_id); ?>" class="text-decoration-none">
                            <div class="card front-page card_<?php echo $titleArea; ?>">
@@ -132,12 +159,14 @@ foreach ($cats as $cat) {
     <a href="<?php echo site_url('/test'); ?>" class="text-decoration-none w-100">
         <div class="container-fluid mb-5 bloc-content test-tax">
             <div class="container bloc-content">
-                <div class="row align-items-center py-5">
-                    <div class="col-12 col-lg-10">
-                        <h2 class="text-white fw-bold text-uppercase">Mettiti alla prova con i nostri test</h2>
-                    </div> 
-                    <div class="col-12 col-lg-2 text-end">
-                        <button class="btn-test-tax btn-scopri mx-auto">Scopri di più</button>
+                <div class="row align-items-center">
+                    <div class=" py-5 d-flex justify-content-between">
+                        <div class="col-12 col-lg-10">
+                            <h2 class="text-white fw-bold text-uppercase">Mettiti alla prova con i nostri test</h2>
+                        </div>
+                        <div class="col-12 col-lg-2 text-end">
+                            <button class="btn-test-tax btn-scopri mx-auto">Scopri di più</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -158,14 +187,12 @@ foreach ($cats as $cat) {
     </div>
     <div class="row row-video-gallery">
         <?php
-        $video = get_field('video_gallery', 609);
-foreach ($video as $k => $v) {
-    get_template_part('template-parts/card-video', 'card-video', ['video' => $v, 'view_taxonomy' => true]);
-    if ($k == 2) {
-        break;
-    }
-}
-?>
+        $video = get_field("video_gallery", 609);
+        foreach ($video as $k => $v) {
+            get_template_part("template-parts/card-video", 'card-video', ["video" => $v, "view_taxonomy" => true]);
+            if($k == 2) break;
+        }
+        ?>
     </div>
 </div>
     <?php /*
@@ -188,7 +215,7 @@ foreach ($video as $k => $v) {
             </div>
         </div>
     </div>
-     */ ?>
+     */?>
 </div>
 <?php /*<div class="container mb-5 mt-5">
     <div class="row align-items-center">
@@ -207,5 +234,5 @@ foreach ($video as $k => $v) {
             </div>
         </div>
     </div>
-</div> */ ?>
-<?php get_footer(); ?>
+</div> */?>
+<?php  get_footer(); ?>

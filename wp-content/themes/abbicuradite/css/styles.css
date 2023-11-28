@@ -57,6 +57,12 @@ a.btn-yellow {
   display: none;
   color: #DC3545;
 }
+.select2 .select2-selection--multiple,
+.select2 .select2-container--default.select2-container--focus .select2-selection--multiple {
+  border: 1px solid #ddd !important;
+  padding: 5px 10px;
+  margin-top: 5px;
+}
 @media screen and (max-width: 1496px) {
   .container,
   .container-sm {
@@ -376,6 +382,9 @@ a .card {
   border: 0 !important;
   padding: 30px;
 }
+.main.quiz fieldset .col-question:not(:first-child) {
+  display: none;
+}
 .main.quiz fieldset .question {
   margin-bottom: 10px;
 }
@@ -397,6 +406,14 @@ a .card {
 }
 .main.quiz fieldset .question .form-check .wpcf7-list-item {
   margin: 5px 0;
+}
+.main.quiz fieldset .question .form-check .wpcf7-list-item .wpcf7-list-item-label {
+  transition: all ease-out 0.3s;
+}
+.main.quiz fieldset .question .form-check .wpcf7-list-item:hover .wpcf7-list-item-label {
+  background: #06449D;
+  color: #fff;
+  transition: all ease-in-out 0.3s;
 }
 .main.quiz fieldset .question input[type=radio] + .wpcf7-list-item-label {
   color: #444;
@@ -534,18 +551,8 @@ a .card {
 .main-content-register .error-send {
   color: red;
 }
-.main-content-register .privacy {
-  display: flex;
-  width: 50%;
-  justify-content: center;
-  align-items: center;
-}
-.main-content-register .privacy #privacy_policy-error {
-  width: 50% !important;
-}
-.main-content-register .privacy a {
-  padding-left: 15px;
-  text-transform: capitalize;
+.main-content-register .privacy label {
+  text-transform: none;
 }
 .banner-area-reserved {
   background: #006dff;
@@ -864,10 +871,23 @@ a .card {
 .row-video-gallery .card iframe.w-100 {
   border-radius: 10px;
 }
+.show-compilare-btn {
+  top: 92px;
+  right: 0;
+  z-index: 10;
+  text-decoration: none;
+  box-shadow: 0 0 10px #666;
+  transform: translateX(100%);
+  transition: all ease-out 0.3s;
+}
 @media screen and (max-width: 1200px) {
   .show-compilare-btn {
     width: auto!important;
   }
+}
+.show-compilare-btn.visible {
+  transform: translateX(0%);
+  transition: all ease-in-out 0.3s;
 }
 @media screen and (max-width: 480px) {
   .btn-single-pg-aree {

@@ -5,7 +5,7 @@ function blockValutazione($domande,$userId){
     foreach($domande as $d=> $domanda) :
     $count++;
     ?>
-    <div class="col-sm-6 col-md-6 col-lg-4">
+    <div class="col-sm-6 col-md-6 col-lg-4 col-question">
         <div class="question">
             <div class="title">
                 <span class="dashicons dashicons-arrow-right-alt2"></span>

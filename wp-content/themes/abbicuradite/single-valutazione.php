@@ -69,10 +69,10 @@ if (is_user_logged_in()) {?>
         </div>
     </div>
 
-    <div class="main quiz bg-light-grey mb-5 mt--15">
+    <div class="main quiz bg-light-grey mb-5 mt--15 section-form-anagrafica">
         <div class="container py-4">
             <div class="valutazione mt-4">
-                <fieldset class="field ">
+                <fieldset class="field field-anagrafica">
                     <div class="row gy-5 gx-5">
                     <?php blockAnagrafici($domandeAnagrafici, $userId); ?>
                     </div>
@@ -82,7 +82,7 @@ if (is_user_logged_in()) {?>
     </div>
 
 
-    <div class="main quiz mt-5 pt-5">
+    <div class="main quiz mt-5 pt-5 section-title-valutazione" style="display: none;">
         <div class="container">
             <div class="cnt-h5">
                 <h5><?php echo get_field('titolo_blocco_valutazione_questionario', $id_page_valutazione); ?></h5>
@@ -91,10 +91,10 @@ if (is_user_logged_in()) {?>
         </div>
     </div>
 
-    <div class="main quiz bg-light-blu mb-5 mt--15">
+    <div class="main quiz bg-light-blu mb-5 mt--15 section-form-valutazione" style="display: none;">
         <div class="container py-4">
             <div class="valutazione mt-4">
-                <fieldset class="field ">
+                <fieldset class="field field-valutazione">
                     <div class="row gy-5 gx-5">
                         <?php blockValutazione($domande, $userId); ?>
                     </div>
@@ -103,10 +103,11 @@ if (is_user_logged_in()) {?>
         </div>
     </div>
 
-    <div class="main quiz my-5">
-        <div class="container py-4">
-            <div class="valutazione">
-                <div class="my-3 text-center">
+    <div class="main quiz my-5 section-button">
+        <div class="container py-4 my-5">
+            <div class="valutazione text-center">
+                <h5 class="mb-5 subtitle ">Prima di procedere rispondere a tutte le domande.</h5>
+                <div class="my-3">
                     <button type="button" class="btn-scopri btn-send-valutazione ps-3 pe-3 pt-2 pb-2" data-postType="<?php echo get_the_id(); ?>" data-user="<?php echo $userId; ?>">Invia</button>
                 </div>
              </div>

@@ -22,7 +22,8 @@ $results = $wpdb->get_results('SELECT * FROM regioni Order By nome');
     <div class="row">
         <div class="col">
             <div class="content">
-                <h1 class="my-5"><?php the_title(); ?></h1>
+                <h1 class="title-bloc mt-5 mb-3 fw-bold"><?php the_title(); ?></h1>
+                <h5 class="subtitle text-uppercase mb-5">Compila i dati per creare un nuovo account.<br>Potrai metterti alla prova e accedere ai test.</h5>
                 <div class="pageBody my-5" >
                     <form action="" id="register-form" method="post">
 
@@ -273,9 +274,9 @@ $results = $wpdb->get_results('SELECT * FROM regioni Order By nome');
                 iva_company: { pIVA: true },
             },
             messages: {
-                user_pass: 'Password è obbligatorio',
+                user_pass: 'Campo obbligatorio',
                 user_pass_again: {
-                    required: 'Confirm è obbligatorio',
+                    required: 'Campo obbligatorio',
                     equalTo: 'Password non corrispondente',
                 },
                 //user_tax_id_code: 'Codice fiscale non valido',

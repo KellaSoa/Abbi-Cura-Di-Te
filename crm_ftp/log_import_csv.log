@@ -1,5 +1,5 @@
 Table crm_user truncated successfully
-Import started at 2023-10-27 12:56:25
+Import started at 2023-11-28 17:06:28
 User created: idDipendente: ﻿IdDipendente, Cognome: Cognome, Nome: Nome
 User created: idDipendente: 10129, Cognome: ABBANDONI, Nome: ELEONORA
 User created: idDipendente: 8838, Cognome: ABBASSI, Nome: BACEM
@@ -1003,7 +1003,17 @@ User created: idDipendente: 2000, Cognome: DELLI CARPINI, Nome: RAFFAELE
 totalLines: 3178
 execute the next: 1001
  LinesTable crm_user truncated successfully
-Import started at 2023-10-27 12:56:27
+Import started at 2023-11-28 17:06:29
+User created: idDipendente: 10930, Cognome: DELLA GRAZIA, Nome: MATTEO PAOLO
+User created: idDipendente: 9554, Cognome: DELLA LENA, Nome: GAIA
+User created: idDipendente: 1092, Cognome: DELL'AIRA, Nome: CARLO ANDREA
+User created: idDipendente: 7919, Cognome: DELL'AMICO, Nome: CINZIA
+User created: idDipendente: 7920, Cognome: DELL'AMICO, Nome: INES MARA
+User created: idDipendente: 8393, Cognome: DELL'ARMELLINA, Nome: MARCO
+User created: idDipendente: 1125, Cognome: DELL'ARMI, Nome: ANDREA
+User created: idDipendente: 7509, Cognome: DELLAVALLE, Nome: LUCA
+User created: idDipendente: 2000, Cognome: DELLI CARPINI, Nome: RAFFAELE
+User created: idDipendente: 8110, Cognome: DELLI POGGI, Nome: ORIETTA
 User created: idDipendente: 8962, Cognome: DELLO STORTO, Nome: CARLO
 User created: idDipendente: 1126, Cognome: DENTE, Nome: ALESSANDRA
 User created: idDipendente: 6636, Cognome: DERVISHI, Nome: ARLIND
@@ -1994,20 +2004,20 @@ User created: idDipendente: 9723, Cognome: MINGARDI, Nome: DAVIDE
 User created: idDipendente: 9724, Cognome: MINGONI, Nome: MARIA GRAZIA
 User created: idDipendente: 3887, Cognome: MINNI, Nome: DONATELLA
 User created: idDipendente: 9788, Cognome: MINOTTI, Nome: VITTORIA
-User created: idDipendente: 5057, Cognome: MINUCCI, Nome: PETILA
-User created: idDipendente: 6022, Cognome: MIRABELLA, Nome: ALFIO
-User created: idDipendente: 10763, Cognome: MIRELLI, Nome: MICHELE
-User created: idDipendente: 9075, Cognome: MIRI LAVASANI, Nome: ARMIN
-User created: idDipendente: 2341, Cognome: MIRI LAVASANI, Nome: ARTIN
-User created: idDipendente: 3091, Cognome: MIRI LAVASANI, Nome: SEYED ABDOLLAH
-User created: idDipendente: 9076, Cognome: MIRI LAVASANI, Nome: SEYED HESAM
-User created: idDipendente: 1095, Cognome: MIRTI, Nome: ANNAMARTA
-User created: idDipendente: 1094, Cognome: MIRTI, Nome: ELENA
-User created: idDipendente: 6361, Cognome: MISCHIANTI, Nome: ANNA MARIA
 totalLines: 3178
 execute the next: 3003
  LinesTable crm_user truncated successfully
-Import started at 2023-10-27 12:56:29
+Import started at 2023-11-28 17:06:31
+User created: idDipendente: 9799, Cognome: TORDONI, Nome: MARTINA
+User created: idDipendente: 3658, Cognome: TORRESANI, Nome: SARA GIUSEPPINA
+User created: idDipendente: 7535, Cognome: TORTI, Nome: NICOL
+User created: idDipendente: 10650, Cognome: TORTORELLI, Nome: PAOLA
+User created: idDipendente: 1305, Cognome: TORZONI, Nome: LUCIA
+User created: idDipendente: 5117, Cognome: TOSTI, Nome: FABRIZIO
+User created: idDipendente: 4890, Cognome: TOSTI, Nome: SIMONE
+User created: idDipendente: 4595, Cognome: TRABALZA, Nome: ELISABETTA
+User created: idDipendente: 7938, Cognome: TRABALZA, Nome: FABIOLA
+User created: idDipendente: 5493, Cognome: TRABALZA, Nome: IGOR
 User created: idDipendente: 4757, Cognome: TRABALZA, Nome: ILENIA
 User created: idDipendente: 11273, Cognome: TRAPOLINO, Nome: GIUSEPPE
 User created: idDipendente: 3583, Cognome: TRAVERSINI, Nome: JESSICA
@@ -2184,5 +2194,5 @@ User created: idDipendente: 1264, Cognome: ZUCCONI, Nome: ANDREA
 User created: idDipendente: 9801, Cognome: ZULUAGA PARRA, Nome: MIGUEL FERNANDO
 User created: idDipendente: 6168, Cognome: ZURLO, Nome: ANDREA
 totalLines: 3178
-execute the next: 6182
+execute the next: 6192
  LinesEnd Export Lines

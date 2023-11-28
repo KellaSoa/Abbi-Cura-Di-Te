@@ -16,9 +16,9 @@ function wpdocs_theme_name_scripts()
     wp_enqueue_style('montserrat-font', 'https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
     wp_enqueue_style('bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css');
     wp_enqueue_style('bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap-modal-carousel.css');
-    wp_enqueue_style('style', get_stylesheet_uri());
+    wp_enqueue_style('style', get_stylesheet_uri(), [], 1.2);
     wp_enqueue_style('bootstrap-modal-carousel', get_theme_file_uri('/css/bootstrap-modal-carousel.css'));
-    wp_enqueue_style('abbicuradite-style', get_stylesheet_directory_uri().'/css/styles.css', [], '6');
+    wp_enqueue_style('abbicuradite-style', get_stylesheet_directory_uri().'/css/styles.css', [], '6.1');
 
     wp_enqueue_style('select2-css', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css');
 
@@ -28,8 +28,7 @@ function wpdocs_theme_name_scripts()
     wp_enqueue_script('additional-methods-js', 'https://cdn.jsdelivr.net/npm/jquery-validation@1.19.2/dist/additional-methods.min.js');
     wp_enqueue_script('select2-js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js');
     wp_enqueue_script('canvas-js', get_stylesheet_directory_uri().'/js/canvas.js');
-    wp_enqueue_script('custom', get_stylesheet_directory_uri().'/js/script.js',
-        ['jquery'], false, true);
+    wp_enqueue_script('custom', get_stylesheet_directory_uri().'/js/script.js', ['jquery'], 1.2, true);
 
 }
 
@@ -719,35 +718,27 @@ add_action('user_register', 'save_checkout_field');
 // END privacy register
 
 // BEGIN CRON
-function custom_csv_event_callback()
+function import_user_crm_callback()
 {
     $processor = UserCRM::Instance();
     $processor->truncateTableAndLog();
     $processor->CSVProcessor();
 }
 
-add_action('custom_csv_event', 'custom_csv_event_callback');
-
-/*function schedule_custom_event()
-{
-    if (!wp_next_scheduled('custom_csv_event')) {
-        wp_schedule_event(strtotime('10:44:00'), 'daily', 'custom_csv_event');
-    }
-}
-add_action('init', 'schedule_custom_event');*/
+add_action('import_user_crm', 'import_user_crm_callback');
 
 function activate() {
-    wp_schedule_event( strtotime('10:44:00'), 'daily', 'custom_csv_event' );
+    wp_schedule_event( strtotime('10:44:00'), 'daily', 'import_user_crm' );
 }
 
 function deactivate() {
-    wp_clear_scheduled_hook('custom_csv_event');
+    wp_clear_scheduled_hook('import_user_crm');
 }
 
 
 function trigger_custom_event()
 {
-    do_action('custom_csv_event');
+    do_action('import_user_crm');
 }
 // END CRON
 
@@ -771,7 +762,7 @@ add_action('wp_ajax_export_users_csv', 'export_users_csv');
 function export_users_csv() {
 
     $timestamp = date('Y-m-d_H-i');
-    $filename = 'csv-user-esterno_'.$timestamp.'.csv';
+    $filename = 'export-utenti-esterni-ebt-'.$timestamp.'.csv';
     header('Content-Type: text/csv; charset=utf-8');
     header('Content-Disposition: attachment; filename="'.$filename.'"');
 
@@ -864,7 +855,7 @@ function add_export_csv_button() {
             exportButton.classList.add('button');
             exportButton.classList.add('button-primary');
             exportButton.href = '<?php echo admin_url('admin-ajax.php?action=export_users_csv'); ?>';
-            exportButton.innerText = 'Export CSV USER EXTERNAL';
+            exportButton.innerText = 'Export UTENTI ESTERNI EBT';
             exportButton.target = '_blank';
             let actions = document.querySelector('.alignleft.actions');
             actions.appendChild(exportButton);
@@ -879,8 +870,8 @@ add_action('admin_footer-users.php', 'add_export_csv_button');
 register_activation_hook(__FILE__, 'activate_csv_export_cron');
 
 function activate_csv_export_cron() {
-    if (!wp_next_scheduled('csv_export_event')) {
-        wp_schedule_event(time(), 'daily', 'csv_export_event');
+    if (!wp_next_scheduled('export_csv_user_external')) {
+        wp_schedule_event(time(), 'daily', 'export_csv_user_external');
     }
 }
 
@@ -888,11 +879,11 @@ function activate_csv_export_cron() {
 register_deactivation_hook(__FILE__, 'deactivate_csv_export_cron');
 
 function deactivate_csv_export_cron() {
-    wp_clear_scheduled_hook('csv_export_event');
+    wp_clear_scheduled_hook('export_csv_user_external');
 }
 
 // Define the cron event
-add_action('csv_export_event', 'export_csv_users');
+add_action('export_csv_user_external', 'export_csv_users');
 
 // Function to export CSV users
 function export_csv_users() {
