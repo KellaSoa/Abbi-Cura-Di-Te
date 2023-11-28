@@ -18,7 +18,7 @@ $title2 = get_field('titolo_due', $termTaxonomy);
 $userId = get_current_user_id();
 $userInfo = get_userdata($userId);
 $userMeta = get_user_meta($userId);
-//$id_page_esercizi = 368;
+// $id_page_esercizi = 368;
 $id_page_test = 344;
 $objPost = get_queried_object();
 
@@ -26,10 +26,12 @@ global $wpdb;
 $current_user = wp_get_current_user();
 $dataTestUser = $wpdb->get_results("SELECT * FROM wp_valutazione WHERE user_id = $current_user->ID");
 
-$video = get_field("video_gallery", 609);
+$video = get_field('video_gallery', 609);
 $video_area = [];
 foreach ($video as $i => $item) {
-    if(!empty($item['area_di_rischio_video_youtube']) && $item['area_di_rischio_video_youtube']->term_id == $objPost->term_id) $video_area[] = $item;
+    if (!empty($item['area_di_rischio_video_youtube']) && $item['area_di_rischio_video_youtube']->term_id == $objPost->term_id) {
+        $video_area[] = $item;
+    }
 }
 
 $titleArea = strtoupper($term->slug);
@@ -50,7 +52,7 @@ $testo_descrizione = get_field('testo_descrizione', $termTaxonomy);
                 <div class="btn-single-pg-aree d-flex mt-5">
                     <a class="btn-scopri text-white" href="#sfoglia-le-slide"><?php echo get_field('btn1', $termTaxonomy); ?></a>
                     <a class="btn-scopri text-white" href="#i-nostri-test"><?php echo get_field('btn2', $termTaxonomy); ?></a>
-                    <?php /*<a class="btn-scopri text-white" href="#esercizi-e-consigli" ><?php echo get_field('btn3', $termTaxonomy); ?></a>*/?>
+                    <?php /* <a class="btn-scopri text-white" href="#esercizi-e-consigli" ><?php echo get_field('btn3', $termTaxonomy); ?></a> */ ?>
                 </div>
             </div>
         </div>
@@ -61,15 +63,15 @@ $testo_descrizione = get_field('testo_descrizione', $termTaxonomy);
         <div class="container">
             <div class="row align-items-center py-5">
                 <div class="col-sm-6 detail-tax py-3">
-                    <?php if(!empty($titolo_descrizione)):?>
+                    <?php if (!empty($titolo_descrizione)) { ?>
                     <h1 class="title-bloc fs-1 fw-bold"><?php echo $titolo_descrizione; ?></h1>
-                    <?php endif;?>
-                    <?php if(!empty($sottotitolo_descrizione)):?>
+                    <?php }?>
+                    <?php if (!empty($sottotitolo_descrizione)) { ?>
                     <h5 class="subtitle text-uppercase"><?php echo $sottotitolo_descrizione; ?></h5>
-                    <?php endif;?>
-                    <?php if(!empty($testo_descrizione)):?>
+                    <?php }?>
+                    <?php if (!empty($testo_descrizione)) { ?>
                     <div class="pt-1 pb-2"><?php echo $testo_descrizione; ?></div>
-                    <?php endif;?>
+                    <?php }?>
                     <div class="mt-4">
                         <a href="" class="btn-scopri" data-area="testCarousel<?php echo $titleArea; ?>" data-tax="<?php echo $titleArea; ?>" data-bs-toggle="modal" data-bs-target="#docModal<?php echo $titleArea; ?>">
                             Sfoglia il documento
@@ -86,31 +88,31 @@ $testo_descrizione = get_field('testo_descrizione', $termTaxonomy);
     </div>
     <?php ModalStudio($term); ?>
 
-    <?php if(!empty($video_area)):?>
+    <?php if (!empty($video_area)) { ?>
     <div class="container my-5">
         <div class="row align-items-center mt-3 mb-5 justify-content-center">
             <div class="col-12 text-center">
-                <h1 class="title-bloc fs-1 fw-bold"><?php echo get_field("titolo_blocco_video", $termTaxonomy); ?></h1>
-                <h5 class="subtitle py-2 text-uppercase"><?php echo get_field("sottotitolo_blocco_video", $termTaxonomy); ?></h5>
-                <p><?php echo get_field("descrizione_blocco_video", $termTaxonomy); ?></p>
+                <h1 class="title-bloc fs-1 fw-bold"><?php echo get_field('titolo_blocco_video', $termTaxonomy); ?></h1>
+                <h5 class="subtitle py-2 text-uppercase"><?php echo get_field('sottotitolo_blocco_video', $termTaxonomy); ?></h5>
+                <p><?php echo get_field('descrizione_blocco_video', $termTaxonomy); ?></p>
             </div>
         </div>
         <div class="row row-video-gallery justify-content-center">
             <?php
             foreach ($video_area as $k => $v) {
-                get_template_part("template-parts/card-video", 'card-video', ["video" => $v, "view_taxonomy" => false]);
+                get_template_part('template-parts/card-video', 'card-video', ['video' => $v, 'view_taxonomy' => false]);
             }
-            ?>
+        ?>
         </div>
         <div class="row">
-            <?php if(!empty(get_field("bottone_blocco_video", $termTaxonomy))):?>
+            <?php if (!empty(get_field('bottone_blocco_video', $termTaxonomy))) { ?>
                 <div class="col-12 text-center">
-                    <a class="btn-test-tax btn-border-radius-bleu mx-auto" href="<?php echo site_url('/video-gallery')?>"><?php echo get_field("bottone_blocco_video", $termTaxonomy); ?></a>
+                    <a class="btn-test-tax btn-border-radius-bleu mx-auto" href="<?php echo site_url('/video-gallery'); ?>"><?php echo get_field('bottone_blocco_video', $termTaxonomy); ?></a>
                 </div>
-            <?php endif;?>
+            <?php }?>
         </div>
     </div>
-    <?php endif;?>
+    <?php }?>
     <div class="container-fluid mb-5 bloc-content test-tax">
         <div class="container bloc-content">
             <div class="row align-items-center py-5">
@@ -133,31 +135,48 @@ $testo_descrizione = get_field('testo_descrizione', $termTaxonomy);
             </div>
             <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
                 <?php
-                $valueGet = getTestUserBySector();
-                $sectorCurrentUser = $valueGet['sectorCurrentUser'];
-                if(have_posts()):
-                    while (have_posts()) {
-                        the_post();
-                        if ($post->post_type === 'esercizi') {
-                            continue;
-                        }
-                        $sectors = get_field('settore');
-                        $allTest = AllTestBySector($sectors, $sectorCurrentUser, $valueGet);
-                        $args = ['term' => $term];
-                        if ($allTest['has_sector'] && is_user_logged_in()) { ?>
-                        <div class="col col-sm-6 col-lg-4 my-3">
-                            <?php get_template_part('template-parts/card-test-User', '', $args); ?>
-                        </div>
-                        <?php } elseif (!is_user_logged_in() || (is_user_logged_in() && current_user_can('administrator'))) { ?>
-                        <div class="col col-sm-6 col-lg-4 my-3">
-                            <?php get_template_part('template-parts/card-test', '', $args);
-                            break; ?>
-                        </div>
-                        <?php } ?>
-                    <?php }
-                else:
-                    echo "Non è disponibile alcun test";
-                endif;?>
+$args_rischio = [
+    'post_type' => 'test',
+    'orderby' => 'ID',
+    'order' => 'ASC',
+    'tax_query' => [
+        [
+            'taxonomy' => 'area-rischio',
+            'field' => 'slug',
+            'terms' => $term->slug,
+        ],
+    ],
+];
+
+$query = new WP_Query($args_rischio);
+
+$valueGet = getTestUserBySector();
+$sectorCurrentUser = $valueGet['sectorCurrentUser'];
+if ($query->have_posts()) {
+    while ($query->have_posts()) {
+        $query->the_post();
+        if ($post->post_type === 'esercizi') {
+            continue;
+        }
+        $sectors = get_field('settore');
+        $allTest = AllTestBySector($sectors, $sectorCurrentUser, $valueGet);
+        $args = ['term' => $term];
+        if ($allTest['has_sector'] && is_user_logged_in()) { ?>
+            <div class="col col-sm-6 col-lg-4 my-3">
+                <?php get_template_part('template-parts/card-test-User', '', $args);
+            break; ?>
+            </div>
+            <?php } elseif (!is_user_logged_in() || (is_user_logged_in() && current_user_can('administrator'))) { ?>
+            <div class="col col-sm-6 col-lg-4 my-3">
+                <?php get_template_part('template-parts/card-test', '', $args);
+                break; ?>
+            </div>
+        <?php }
+            }
+} else {
+    echo 'Non è disponibile alcun test';
+}
+?>
             </div>
         </div>
     </div>
@@ -186,6 +205,6 @@ exercise(6, $titleArea); ?>
             </div>
         </div>
     </div>
-    */?>
+    */ ?>
 </div>
 <?php get_footer(); ?>
